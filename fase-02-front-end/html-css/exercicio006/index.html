@@ -4,6 +4,15 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Formatação de textos</title>
+		<style>
+			mark {
+				background-color: lightgreen;
+			}
+			.texto-grande {
+				font-size: 1.5em;
+			}
+		</style>
+		<!-- Ao utilizar o parametro mark dentro da tag <style> dentro do HTML a cor padrão de todas as marcações é alterada, menos as que tiverem o seu próprio parametro style-->
 	</head>
 	<body>
 		<h1>Principais formatações</h1>
@@ -22,5 +31,43 @@
 		</p>
 		<p>Nesta frase, temos um <em>termo em ênfase</em> usando a tag &lt;em&gt;(semântica)</p>
 		<!--A tag <em></em> enfatiza uma parte do texto de forma semântica-->
+
+		<h2>Texto marcado</h2>
+		<p>
+			Podemos criar também
+			<mark style="background-color: aquamarine">um texto marcado usando a tag</mark>
+			&lt;mark&gt;
+		</p>
+		<!--Na tag <mark></mark> padrão a cor padrão do marca texto é amarela, mas podemos utilizar um parametro style do CSS e alterar a cor de fundo do marca texto.-->
+		<p><mark>Esse é um exemplo da tag mark com a cor padrão</mark></p>
+
+		<h2>Texto grande e pequeno</h2>
+		<p>
+			Estamos criando <span style="font-size: 1.5em">um texto grande</span> e
+			<small>um texto pequeno</small> nesse parágrafo.
+		</p>
+		<!--Nesse exemplo usamos um parametro style dentro da tag <span> para aumentar a letra, mas não seria o mais indicado para um código limpo-->
+		<p>
+			Nesse paragrafo estamos criando
+			<span class="texto-grande">um texto grande</span> utilizando classe (mais limpo e
+			reutilizavel)
+		</p>
+		<!--Com o parametro .texto-grande dentro da tag <style> podemos reutilizar a classe texto-grande em qualquer parte do texto de forma padronizada-->
+		<h2>Texto deletado</h2>
+		<p>
+			Podemos marcar <del>um texto como excluido</del> para indicar que ele deve ser lido, mas
+			não considerado utilizando a tag &lt;del&gt;
+		</p>
+		<h2>Texto inserido</h2>
+		<p>
+			Podemos marcar <ins>um texto como inserido</ins> para dar ênfase e indicar que ele foi
+			adcionado depois utilizando a tag &lt;ins&gt;.
+		</p>
+		<p>Existe também o <u>sublinhado</u> com a tag &lt;u&gt; (não semântica)</p>
+
+		<h2>Texto sobrescrito</h2>
+		<p>Para inserir coisas do tipo x<sup>20</sup>+3, podemos utilizar a tag &lt;sup&gt;</p>
+		<h2>Texto subscrito</h2>
+		<p>Para inserir coisas do tipo H<sub>2</sub>O, podemos utilizar a tag &lt;sub&gt;</p>
 	</body>
 </html>
