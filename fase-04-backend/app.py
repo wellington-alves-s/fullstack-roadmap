@@ -1,4 +1,0 @@
-print ('Funcionooou!')
-
-print ('Funcionooou!')
-
