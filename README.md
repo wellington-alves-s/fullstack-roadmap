@@ -16,7 +16,7 @@ Este repositório contém minha jornada completa para me tornar um **Desenvolved
 - ⬜ Fase 06 – Testes e Segurança
 - ⬜ Fase 07 – DevOps Essentials
 - ⬜ Fase 08 – Microsserviços e Arquitetura Avançada
-- ⬜ Portfólio Final e Entrevistas
+- ⬜ Portfólio Final e Entrevista
 
 ## 📂 Estrutura
 
