@@ -47,11 +47,11 @@ Corpo — conteúdo retornado (HTML, JSON, imagens etc.).
 
 Os códigos de status são números que indicam o resultado do pedido:
 
-Categoria	Exemplo	Significado
-2xx	200 OK	Pedido bem-sucedido
-3xx	301 Redirect	Redirecionamento
-4xx	404 Not Found	Recurso não encontrado
-5xx	500 Internal Server Error	Erro no servidor
+Categoria Exemplo Significado
+2xx 200 OK Pedido bem-sucedido
+3xx 301 Redirect Redirecionamento
+4xx 404 Not Found Recurso não encontrado
+5xx 500 Internal Server Error Erro no servidor
 🚀 Versões do HTTP
 
 HTTP evoluiu ao longo do tempo:
@@ -73,3 +73,30 @@ HTTP é o protocolo que rege a troca de informações na web.
 Ele usa um ciclo requisição → resposta entre cliente e servidor.
 
 As mensagens têm métodos, cabeçalhos, corpo e códigos de status para indicar o resultado de cada interação.
+
+Exemplo de requisição:
+
+POST / HTTP/1.1
+Host: www.codigofonte.com.br/
+User-Agent: Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/76.0.3809.87 Chrome/76.0.3809.87 Safari/537.36
+Accept: text/html,application/xml;q=0.9,_/_;q=0.8
+Accept-Language: pt-br
+Accept-Encoding: gzip,deflate
+Accept-Charset: utf-8;q=0.7,\*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+
+nome1=vanessa&nome2=gabriel
+
+Exemplo de resposta do servidor:
+
+HTTP/1.1 200 OK
+Date: Mon, 27 Jul 2009 12:28:53 GMT
+Server: nginx
+Content-Length: 17
+Content-Type: text/html; charset=utf-8
+Connection: close
+
+<h1>OLA CDF!</h1>
