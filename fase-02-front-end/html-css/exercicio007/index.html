@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
 	<head>
 		<meta charset="UTF-8" />
@@ -8,17 +8,92 @@
 	<body>
 		<h1>Trabalhando com Listas</h1>
 		<h2>Listas Ordenadas</h2>
-		<ol>
+		<ol type="I" start="4">
+			<!-- ol= ordered list - type seleciona o tipo de numeração, podendo ser: 1, A, a, I, i - start define o número inicial-->
 			<li>Acordar</li>
 			<li>Tomar café</li>
 			<li>Ligar para o João</li>
 			<li>Escovar os dentes</li>
+			<li>Ir para o trabalho</li>
+			<li>Almoçar</li>
+			<li>Voltar para casa</li>
+			<li>Jantar</li>
+			<li>Assistir TV</li>
+			<li>Ir para a cama</li>
+			<li>Dormir</li>
 		</ol>
 		<h2>Listas Não Ordenadas</h2>
-		<ul>
+		<ul type="square">
+			<!-- ul= unordered list - type seleciona o tipo de marcador podendo ser: disc, circle, square-->
 			<li>Item A</li>
 			<li>Item B</li>
 			<li>Item C</li>
+			<li>Pão</li>
+			<li>Leite</li>
+			<li>Alface</li>
+			<li>Frutas</li>
+			<li>Verduras</li>
 		</ul>
+		<h2>Minhas linguagens favoritas</h2>
+		<ol>
+			<li>Antigas</li>
+			<ol type="a">
+				<!-- ol dentro de ol para criar uma sublista -->
+				<li>Pascal</li>
+				<li>Delphi</li>
+				<li>Visual Basic</li>
+			</ol>
+			<li>Atuais</li>
+			<ol type="a" start="5">
+				<!-- ol dentro de ol para criar uma sublista - start define o número inicial -->
+				<li>JavaScript</li>
+				<li>Python</li>
+				<li>Java</li>
+				<li>C#</li>
+				<li>Ruby</li>
+			</ol>
+		</ol>
+		<h2>Meus jogos favoritos</h2>
+		<ol>
+			<li>NES</li>
+			<ul type="disc">
+				<!-- ol dentro de ol para criar uma sublista -->
+				<li>Super Mario Bros</li>
+				<ul type="square">
+					<!-- Você pode criar sublistas aninhadas dentro de uma lista -->
+					<li>Super Mario Bros 2</li>
+					<li>Super Mario Bros 3</li>
+				</ul>
+				<li>The Legend of Zelda</li>
+				<li>Metroid</li>
+			</ul>
+			<!-- Clicar após o u ou o em cada lista apertando o alt, você pode apagar todos de uma vez e substituir por u ou o -->
+
+			<li>SNES</li>
+			<ul type="disc">
+				<!-- ol dentro de ol para criar uma sublista -->
+				<li>Super Mario World</li>
+				<li>The Legend of Zelda: A Link to the Past</li>
+				<li>Donkey Kong Country</li>
+			</ul>
+			<li>PlayStation</li>
+			<ul type="disc">
+				<!-- ol dentro de ol para criar uma sublista -->
+				<li>Final Fantasy VII</li>
+				<li>Metal Gear Solid</li>
+				<li>Resident Evil</li>
+			</ul>
+		</ol>
+		<h2>Lista de definições</h2>
+		<dl>
+			<dt>Termo</dt>
+			<dd>Definição do termo</dd>
+		</dl>
+		<dt>HTML</dt>
+		<dd>Linguagem de marcação utilizada para criar páginas web</dd>
+		<dt>CSS</dt>
+		<dd>Linguagem de estilo utilizada para definir a apresentação de páginas web</dd>
+		<dt>JavaScript</dt>
+		<dd>Linguagem de programação utilizada para criar interatividade em páginas web</dd>
 	</body>
 </html>
