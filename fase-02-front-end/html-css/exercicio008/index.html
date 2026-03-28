@@ -9,5 +9,16 @@
     <h1>Usando links</h1>
     <p>Você pode acessar o meu <a href="https://github.com/wellington-alves-s" target="_blank" rel="external">repositório publico no GitHub</a> </p> <!-- target="_blank" abre o link em uma nova aba, rel="external" indica que o link leva a um recurso externo -->
     <p>Você também pode acessar o meu <a href="https://www.youtube.com/channel/UCP7_0i5X2J5J5J5J5J5J5J5" target="_blank" rel="external">canal gratuito o Youtube</a></p>
+    <h2>Usando links internos</h2>
+    <p>Esta é a primeira página do meu site. Se você quiser, pode acessar a minha <a href="pag002.html" rel="next" target="_self">segunda página</a></p> <!-- Apertar Ctrl + barra de espaço dentro das aspas mostra as outras páginas dentro da mesma pasta que podem ser selecionadas, target="_self" abre o link na mesma aba -->
+    <p>Você também pode acessar a nossa página de <a href="noticias/pag003.html" rel="next" target="_self">notícias</a></p><!-- target="_self" abre o link na mesma aba -->
+
+    <h1>Links para download</h1>
+    <ul>
+        <li><a href="#">Ligações por toda parte</a></li><!--Utilize # para criar um link vazio -->
+        <li><a href="livro/10 - Ligações em toda parte.pdf">Acessar livro</a></li> <!--Utilize o caminho relativo para criar um link para um arquivo dentro do seu projeto, neste caso sem a tag 'dowmload' o arquivo pdf é aberto no navegador -->
+        <li><a href="livro/10 - Ligações em toda parte.pdf" download>Download livro</a></li> <!--Utilize a tag 'download' para forçar o download do arquivo -->
+        <li><a href="livro/10 - Ligações em toda parte.pdf" download type="application/pdf">Download livro</a></li> <!--Utilize a tag type para especificar o tipo de arquivo -->
+    </ul>
 </body>
-</html>
+</html>   
