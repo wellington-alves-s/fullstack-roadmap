@@ -2,7 +2,7 @@
 
 Foi a primeira fase da web, com sites funcionando principalmente entre 1991 e 2004.
 
-As páginas eram estáticas conteúdo fixo que o usuário apenas lia.
+As páginas eram estáticas: conteúdo fixo que o usuário apenas lia.
 
 Não havia muita interação: os usuários eram em sua maioria consumidores de conteúdo, não produtores.
 
