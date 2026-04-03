@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midias em HTML5</title>
+</head>
+
+<body>
+    <h1>Imagens dinamicas</h1>
+    <p>Tente abrir esse site em vários dispositivos diferentes ou simplesmente aumente o tamanho do seu navegador.</p>
+
+    <picture>
+        <source media="(max-width: 750px)" srcset="imagens/imagem-pequena.png" type="image/png">
+        <source media="(max-width: 1050px)" srcset="imagens/imagem-media.png" type="image/png">
+        <img src="imagens/imagem-grande.png" alt="Imagem flexivel">
+    </picture><!--A ordem dos sources é importante, o primeiro que atender a condição é o que será exibido-->
+
+    <h1>Reprodução de áudio</h1>
+    <p>Vamos aprender a reproduzir audios em HTML5</p>
+    <audio src="media/Claim To Fame - The Grey Room _ Clark Sims.mp3" controls
+        autoplay></audio><!-- Compativel com MP3 WAV e OGG-->
+
+    <audio preload="metadata">
+        <!-- preload é para carregar o audio antes de ser reproduzido, autoplay para iniciar a reprodução automaticamente e loop para repetir o audio, e metadata serve para carregar apenas os metadados -->
+        <source src="media/Claim To Fame - The Grey Room _ Clark Sims.mp3" type="audio/mpeg">
+        <source src="media/Claim To Fame - The Grey Room _ Clark Sims.ogg" type="audio/ogg">
+        <source src="media/Claim To Fame - The Grey Room _ Clark Sims.wav" type="audio/wav">
+        <p>Infliezmente seu navegador não suporta a reprodução deste áudio <a
+                href="media/Claim To Fame - The Grey Room _ Clark Sims.mp3" download>Clique aqui para baixar o áudio</a>
+        </p>
+        <!-- O elemento p é para exibir uma mensagem caso o navegador não suporte a reprodução do audio, e o link de download é para permitir que o usuário baixe o audio caso não consiga reproduzir -->
+    </audio>
+
+</body>
+
+</html>
