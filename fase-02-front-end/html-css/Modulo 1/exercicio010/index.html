@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videos com HTML5</title>
+</head>
+
+<body>
+    <h1>Inserindo vídeos hospedados localmente</h1>
+    <p>Este vídeo está hospedado localmente no seu servidor.</p>
+
+    <video width="490" poster="imagens/tumb.png" controls> <!-- Também podem ser utilizados os parâmetros width e height, autoplay, loop, muted -->
+        <source src="media/15447888 3840 2160 60Fps.mp4" width="490" type="video/mp4">
+        <source src="media/15447888 3840 2160 60Fps.webm" width="490" type="video/webm">
+        <source src="media/15447888 3840 2160 60Fps.mkv" width="490" type="video/mkv">
+        <source src="media/15447888 3840 2160 60Fps.ogv" width="490" type="video/ogv">
+        <p>Seu navegador não tem suporte para reproduzir este vídeo.</p><!--O navegador vai testar os formatos de vídeo disponíveis em ordem de preferência -->
+    </video>
+
+    <h1>Inserindo videos do youtube</h1>
+    <iframe width="490" height="315" src="https://www.youtube.com/embed/UpC-dPgV9X0?si=Ale0ordxrDTb7cMt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <!-- Pode ser usado para inserir vídeos do YouTube, neste exemplo usei a opção incorporar do youtube-->
+
+    <iframe width="490" height="315" src="https://www.youtube.com/embed/UpC-dPgV9X0?si=Ale0ordxrDTb7cMt" frameborder="0"></iframe> <!-- O atributo title é importante para acessibilidade, mas não é obrigatório. O atributo frameborder é obsoleto, mas ainda é amplamente suportado. O atributo allowfullscreen é importante para permitir que o vídeo seja reproduzido em tela cheia, nesta opção eu apenas copiei o link do vídeo -->
+
+    <h1>Inserindo vídeos do Vimeo</h1>
+
+    <iframe title="vimeo-player" src="https://player.vimeo.com/video/747605362?h=5dc458ab4d" width="490" height="315" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe> <!--Videos do Vimeo podem ser usados para exibir videos privados por assinatura por exemplo, mas o algoritmo não é tão eficiente quanto o do YouTube-->
+
+</body>
+
+</html>

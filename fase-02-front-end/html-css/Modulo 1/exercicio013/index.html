@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estilos externos</title>
+    <link rel="stylesheet" href="style.css"><!-- O link para o arquivo CSS externo deve ser colocado dentro da tag head, antes de qualquer conteúdo que precise ser estilizado. Pode-se adcionar mais links para arquivos CSS se necessário -->
+    <style>
+        h1{
+            text-decoration: underline;
+        }
+        /* O código CSS dentro da tag style tem prioridade sobre o código CSS do arquivo externo, ou seja, se houver regras conflitantes, as regras dentro da tag style serão aplicadas. */
+        /* O código CSS dentro da tag style é considerado um estilo local ou interno, enquanto o código CSS em um arquivo externo é considerado um estilo global ou externo. */
+    </style>
+</head>
+<body>
+    <h1>Capitulo 1</h1>
+    <h2>Capitulo 1.1</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis aspernatur optio quidem repellendus iure perspiciatis quos totam, quasi distinctio. Aliquam commodi facilis, dolor mollitia laborum asperiores? Laboriosam ratione eveniet natus?</p>
+    <h2>Capitulo 1.2</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis aspernatur optio quidem repellendus iure perspiciatis quos totam, quasi distinctio. Aliquam commodi facilis, dolor mollitia laborum asperiores? Laboriosam ratione eveniet natus?</p>
+    <h1>Capitulo 2</h1>
+    <h2>Capitulo 2.1</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis aspernatur optio quidem repellendus iure perspiciatis quos totam, quasi distinctio. Aliquam commodi facilis, dolor mollitia laborum asperiores? Laboriosam ratione eveniet natus?</p>
+    <h2>Capitulo 2.2</h2>
+    <p >Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis aspernatur optio quidem repellendus iure perspiciatis quos totam, quasi distinctio. Aliquam commodi facilis, dolor mollitia laborum asperiores? Laboriosam ratione eveniet natus?</p>
+    <p style="text-align: right;"><a href="pagina02.html" target="_self">Ir para a página 2</a></p> <!-- Os estilos inline têm prioridade sobre os estilos do arquivo CSS externo -->
+</body>
+</html>
