@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+body {
+    background-color: #dae6cb;
+    font-family: Arial, sans-serif;
+}
+h1 {
+    color: #55745e;
+    text-align: left;
+    margin-top: 50px;
+}
+h1#principal {
+    color: #007BFF;
+    font-size: 36px;
+}/* O seletor de id é representado pelo símbolo # seguido do nome do id. Ele é usado para selecionar um elemento específico com um id único. 
+Tudo que em HTML é id = # EM css (só pode um elemento usar o id)
+Tudo o que em HTML é class = . em CSS (pode ter vários elementos)*/
+h2 {
+    text-align: center;
+    margin-top: 20px;
+}
+.basico {
+    color: #1ea51a;
+    font-weight: 1000;
+}/*Classe é representada pelo símbolo . seguido do nome da classe. Ela é usada para selecionar um ou mais elementos que compartilham a mesma classe.*/
+.intermediario {
+    color: #ff9900;
+    font-weight: 1000;
+}
+.avancado {
+        color: #b44607;
+        font-weight: 1000;
+    }
+.destaque {
+    background-color: #ffe600;
+}

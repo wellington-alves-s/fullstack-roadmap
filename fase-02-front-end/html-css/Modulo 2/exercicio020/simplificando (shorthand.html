@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelo de caixa box-level</title>
+    <style>
+        h1 { /*Box-level*/
+            display: inline; /* Com o display: inline, o elemento h1 não ocupa toda a largura disponível, ou seja, ele ocupa apenas a largura necessária para exibir o conteúdo. */
+            background-color: lightblue;
+            margin: 10px auto 10px auto;
+            /*width: 450px;
+            height: 50px;*/
+            /*
+            border-width: 10px;
+            border-style: solid;
+            border-color: black;
+            */
+            border: 10px solid black; /* border é uma propriedade shorthand, ou seja, ela é uma propriedade que simplifica a escrita de outras propriedades, nesse caso, ela simplifica a escrita de border-width, border-style e border-color. A ordem das propriedades na propriedade shorthand é: border-width, border-style e border-color. */
+
+            /*
+            padding-top: 10px;
+            padding-right: 10px;
+            padding-bottom: 10px;
+            padding-left: 10px;
+            */
+            padding: 10px 10px 10px 10px; /* padding é uma propriedade shorthand, ou seja, ela é uma propriedade que simplifica a escrita de outras propriedades, nesse caso, ela simplifica a escrita de padding-top, padding-right, padding-bottom e padding-left. A ordem das propriedades na propriedade shorthand é: padding-top, padding-right, padding-bottom e padding-left. */
+            /* margin-top: 10px; com apenas um valor definido, ele será aplicado para os quatro lados do elemento. */
+            /* margin-top: 10px 20px; com dois valores definidos, o primeiro valor será aplicado para os lados superior e inferior do elemento, e o segundo valor será aplicado para os lados esquerdo e direito do elemento. */
+
+            /*
+            margin-top: 10px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            */
+            margin: 10px auto 10px auto; /* margin é uma propriedade shorthand, ou seja, ela é uma propriedade que simplifica a escrita de outras propriedades, nesse caso, ela simplifica a escrita de margin-top, margin-right, margin-bottom e margin-left. A ordem das propriedades na propriedade shorthand é: margin-top, margin-right, margin-bottom e margin-left. */
+            /* margin: 10px auto 10px auto; com o valor auto, o elemento será centralizado horizontalmente, mas para isso é necessário que o elemento tenha uma largura definida. */
+
+            /*outline-width: 10px;
+            outline-style: dashed;
+            outline-color: blue;
+            */
+            outline: 5px dashed blue; /* outline é uma propriedade shorthand, ou seja, ela é uma propriedade que simplifica a escrita de outras propriedades, nesse caso, ela simplifica a escrita de outline-width, outline-style e outline-color. A ordem das propriedades na propriedade shorthand é: outline-width, outline-style e outline-color. */
+        }/* O modelo de caixa box-level é o modelo de caixa mais comum, ele é usado para elementos que ocupam toda a largura disponível, como h1, p, div, etc. Ele é composto por quatro partes: conteúdo, padding, border e margin. O conteúdo é a parte onde fica o texto ou imagem, o padding é a parte que fica entre o conteúdo e a borda, a borda é a parte que fica entre o padding e a margem, e a margem é a parte que fica entre a borda e os outros elementos. */
+        /* margin: auto; centraliza o elemento horizontalmente, mas para isso é necessário que o elemento tenha uma largura definida. */
+        a { /*Inline-level*/
+            display: inline-block; /* Com o display: inline-block, o elemento a ocupa apenas a largura necessária para exibir o conteúdo, mas ele também pode ter largura e altura definidas, ou seja, ele se comporta como um elemento block-level, mas ele é exibido como um elemento inline-level. */
+            width: 450px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Exemplo de caixa box-level</h1>
+    <p>Parágrafo também são exemplos de elementos box-level, mas os <a href="#">links são elementos inline-level.</a> Vamos ver como tudo isso funciona.</p>
+</body>
+</html>

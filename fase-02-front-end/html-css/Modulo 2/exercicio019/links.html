@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Links</title>
+    <style>
+        /*
+        # = id, 
+        . = class, 
+        : = pseudo-class
+        :: = pseudo-element
+        > = children 
+        a = tag de link,
+        */
+        /* Pseudo-classes são usadas para definir um estado especial de um elemento, como quando o mouse está sobre ele (hover) ou quando ele foi visitado (visited). Já os pseudo-elementos são usados para criar elementos virtuais que podem ser estilizados, como o conteúdo antes ou depois de um elemento (before e after). */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:visited {
+            color: #6C757D;
+            font-weight: bold;
+        }/* O seletor :visited é usado para estilizar links que já foram visitados pelo usuário. Ele permite que você altere a aparência de um link depois que ele foi clicado, geralmente mudando a cor ou o estilo do texto para indicar que o link já foi acessado. */
+        a:hover {
+            color: #17eb10;
+            text-decoration: underline;
+        }
+        a:active {
+            color: #FF0000;
+        }/* O seletor :hover é usado para estilizar um elemento quando o mouse está sobre ele, enquanto o seletor :active é usado para estilizar um elemento no momento em que ele está sendo clicado. Ambos os seletores são úteis para criar efeitos visuais interativos em links e outros elementos clicáveis. */
+
+        a::before {
+            content: "🔗";
+        }/* O seletor ::before é um pseudo-elemento que permite inserir conteúdo antes do conteúdo real de um elemento. Ele é frequentemente usado para adicionar ícones, símbolos ou texto adicional antes do conteúdo principal de um elemento, como um link. */
+        .especial {
+            color: #af0a0a;
+            font-weight: bold;
+            background-color: aqua;
+        }
+        .especial::before {
+            content: "⭐";
+        }
+        .especial::after {
+            content: "⭐";
+        }
+    </style>
+</head>
+<body>
+    <h1>Personalizando links</h1>
+    <ul>
+        <li><a href="https://github.com" target="_blank">Repositorio Github</a></li>
+        <li><a href="https://linkedin.com" target="_blank" class="especial">Linkedin</a></li>
+        <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+        <li><a href="https://youtube.com" target="_blank" class="especial">Youtube</a></li>
+    </ul>
+</body>
+</html>
