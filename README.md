@@ -9,7 +9,7 @@ Este repositório contém minha jornada completa para me tornar um **Desenvolved
 ## 📅 Progresso
 
 - ✅ Fase 01 – Fundamentos Web
-- ⏳ Fase 02 – Front-End Profissional
+- ⏳ Fase 02 – Front-End Profission
 - ⬜ Fase 03 – Git e GitHub
 - ⬜ Fase 04 – Back-End com Node.js
 - ⬜ Fase 05 – NoSQL, Cache e Realtime
