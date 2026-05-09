@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\Ton\\\\Desktop\\\\DEV\\\\fullstack-roadmap\" -Force)",
+      "Bash(Select-Object Name, Mode)",
+      "Bash(grep -E \"\\\\.\\(md|json|html\\)$\")",
+      "Bash(python *)",
+      "Bash(py \"C:\\\\Users\\\\Ton\\\\.claude\\\\plugins\\\\marketplaces\\\\claude-pulse\\\\claude_status.py\" --themes-demo)",
+      "Bash(python3 \"C:\\\\Users\\\\Ton\\\\.claude\\\\plugins\\\\marketplaces\\\\claude-pulse\\\\claude_status.py\" --themes-demo)",
+      "PowerShell(Get-Command *)",
+      "PowerShell(where.exe python 2>&1; where.exe python3 2>&1; where.exe py 2>&1; $env:PATH -split ';' | Where-Object { $_ -match 'python|conda|py' })",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\Ton\\\\AppData\\\\Local\\\\Programs\" -Directory | Select-Object Name; Get-ChildItem \"C:\\\\Program Files\" -Directory | Where-Object { $_.Name -match 'python|conda|Anaconda' } | Select-Object Name)",
+      "PowerShell(py *)",
+      "Bash(python3 \"C:\\\\Users\\\\Ton\\\\.claude\\\\plugins\\\\cache\\\\claude-pulse\\\\claude-pulse\\\\3.0.0\\\\claude_status.py\" --install)",
+      "Bash(py \"C:\\\\Users\\\\Ton\\\\.claude\\\\plugins\\\\cache\\\\claude-pulse\\\\claude-pulse\\\\3.0.0\\\\claude_status.py\" --install)",
+      "Bash(C:\\\\Users\\\\Ton\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python314\\\\python.exe *)",
+      "Skill(update-config)"
+    ]
+  }
+}

@@ -1,0 +1,744 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#0e1117;min-height:100vh}
+.dk{
+  --bg0:#0e1117;--bg1:#161b27;--bg2:#1e2535;--bg3:#252d40;--border:#2a3348;
+  --text1:#e8edf5;--text2:#8b95a8;--text3:#4a5568;
+  --green:#3dd68c;--green-dim:#1a3d2e;--blue:#60a5fa;--blue-dim:#1e2f4a;
+  --amber:#fbbf24;--amber-dim:#3d2e0e;--red:#f87171;--red-dim:#3d1414;
+  --purple:#a78bfa;--purple-dim:#2d1f4a;
+  font-family:'Space Grotesk',sans-serif;background:var(--bg0);color:var(--text1);
+  padding:1.25rem 1rem 2rem;border-radius:16px;
+}
+.topbar{display:flex;align-items:center;gap:10px;margin-bottom:1rem}
+.logo-dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
+.logo-text{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--green);text-transform:uppercase}
+.prog-track{flex:1;height:4px;background:var(--bg3);border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:var(--green);border-radius:99px;transition:width .4s ease}
+.score{font-size:12px;font-weight:600;color:var(--text2);font-family:'JetBrains Mono',monospace}
+.sec-tabs{display:flex;gap:8px;margin-bottom:.75rem;flex-wrap:wrap;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+.sec-tab{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;padding:6px 16px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg2);color:var(--text2);cursor:pointer;transition:all .15s;white-space:nowrap}
+.sec-tab:hover{color:var(--text1);background:var(--bg3);border-color:#3a4560}
+.tabs{display:flex;gap:6px;margin-bottom:1.25rem;flex-wrap:wrap}
+.tab{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;padding:5px 14px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;transition:all .15s}
+.tab.active{background:var(--bg2);color:var(--text1);border-color:#3a4560}
+.tab.done{border-color:var(--green);color:var(--green)}
+.tab.done::after{content:' ✓'}
+.card{background:var(--bg1);border:1px solid var(--border);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:.75rem}
+.meta{display:flex;align-items:center;gap:8px;margin-bottom:.75rem}
+.pill{font-size:10px;font-weight:700;letter-spacing:.08em;padding:3px 10px;border-radius:20px;text-transform:uppercase}
+.p-easy{background:var(--green-dim);color:var(--green)}
+.p-med{background:var(--amber-dim);color:var(--amber)}
+.p-hard{background:var(--red-dim);color:var(--red)}
+.p-concept{background:var(--blue-dim);color:var(--blue)}
+.challenge-title{font-size:16px;font-weight:700;color:var(--text1);margin-bottom:5px}
+.challenge-desc{font-size:13px;color:var(--text2);line-height:1.65;margin-bottom:1rem}
+.code-wrap{background:#0a0d14;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.code-header{display:flex;align-items:center;gap:6px;padding:10px 14px;border-bottom:1px solid var(--border);background:#0d1019}
+.dot{width:10px;height:10px;border-radius:50%}
+.d-r{background:#ff5f57}.d-y{background:#febc2e}.d-g{background:#28c840}
+.code-lang{margin-left:auto;font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--text3);letter-spacing:.08em}
+.code-body{padding:1rem 1.25rem;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:2}
+.ln{display:block;white-space:pre}
+.ln-num{display:inline-block;width:20px;color:var(--text3);user-select:none;font-size:11px;margin-right:12px;text-align:right}
+.blank-w{display:inline-flex;align-items:center;position:relative;vertical-align:middle}
+.blank{display:inline-block;height:26px;background:#131929;border:1.5px dashed #2a3a5a;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text1);padding:0 8px;outline:none;vertical-align:middle;text-align:center;transition:border-color .15s,background .15s;min-width:70px}
+.blank:focus{border-color:var(--blue);border-style:solid;background:#0f1826}
+.blank.ok{border-color:var(--green);border-style:solid;background:var(--green-dim);color:var(--green)}
+.blank.err{border-color:var(--red);border-style:solid;background:var(--red-dim);color:var(--red);animation:shk .3s ease}
+@keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.hint-btn{display:inline-block;margin-left:5px;font-size:11px;color:var(--text3);cursor:pointer;user-select:none;transition:color .15s;border:1px solid var(--border);border-radius:4px;padding:1px 5px;background:var(--bg3)}
+.hint-btn:hover{color:var(--text1)}
+.htip{display:none;position:absolute;left:0;bottom:calc(100% + 6px);background:#2d1f4a;color:#c4b5fd;font-family:'Space Grotesk',sans-serif;font-size:11px;padding:5px 10px;border-radius:7px;white-space:nowrap;z-index:10;pointer-events:none;border:1px solid #4c3789}
+.blank-w:hover .htip{display:block}
+.output-wrap{margin-top:.75rem;background:#0a0d14;border-radius:8px;padding:.75rem 1rem;font-family:'JetBrains Mono',monospace;font-size:12.5px;display:none;border:1px solid var(--border)}
+.output-wrap.show{display:block}
+.out-label{font-size:10px;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.out-val{color:var(--green)}
+.actions{display:flex;align-items:center;gap:8px;margin-top:1rem;flex-wrap:wrap}
+.btn-primary{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;padding:7px 18px;border-radius:8px;background:var(--green);color:#061a0e;border:none;cursor:pointer;transition:opacity .15s,transform .1s}
+.btn-primary:hover{opacity:.85}
+.btn-primary:active{transform:scale(.97)}
+.btn-sec{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:500;padding:7px 14px;border-radius:8px;background:transparent;color:var(--text2);border:1px solid var(--border);cursor:pointer;transition:all .15s}
+.btn-sec:hover{background:var(--bg3);color:var(--text1)}
+.btn-reset{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:500;padding:7px 14px;border-radius:8px;background:transparent;color:var(--text3);border:1px solid var(--border);cursor:pointer;transition:all .15s;margin-left:auto}
+.btn-reset:hover{color:var(--text2);background:var(--bg2)}
+.fb{font-size:13px;font-weight:600;padding:5px 12px;border-radius:7px;display:none;font-family:'JetBrains Mono',monospace}
+.fb.show{display:inline-block}
+.fb-ok{background:var(--green-dim);color:var(--green)}
+.fb-err{background:var(--red-dim);color:var(--red)}
+.congrats{display:none;text-align:center;padding:1.5rem;background:var(--green-dim);border-radius:12px;border:1px solid #1a6b45;color:var(--green);font-size:14px;font-weight:600;margin-top:.5rem}
+.congrats.show{display:block}
+.kw{color:#c084fc}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#3a4d6a}.op{color:#67e8f9}.fn{color:#60a5fa}.sym{color:#e2e8f0}
+</style>
+
+<div class="dk" id="app">
+  <h2 style="position:absolute;width:1px;height:1px;overflow:hidden">Exercícios de programação</h2>
+  <div class="topbar">
+    <span class="logo-dot" id="logo-dot"></span>
+    <span class="logo-text" id="logo-text">Lógica</span>
+    <div class="prog-track"><div class="prog-fill" id="pf" style="width:0%"></div></div>
+    <span class="score" id="sc">0 / 10</span>
+  </div>
+  <div class="sec-tabs" id="sec-tabs"></div>
+  <div class="tabs" id="tabs"></div>
+  <div id="area"></div>
+  <div class="congrats" id="congrats">Seção concluída! Parabéns pelo foco.</div>
+</div>
+
+<script>
+const SECTIONS=[
+  {id:'logica',label:'Lógica',accent:'#3dd68c',dim:'#1a3d2e',challenges:[
+    {title:'Verificação de maioridade',diff:'easy',concept:'if / else',desc:'Complete o código que verifica se uma pessoa pode votar (18 anos ou mais).',lines:[
+      {t:'int idade = 17;',hl:[{w:'int',c:'kw'},{w:'17',c:'num'}]},
+      {t:''},
+      {t:'_____ (idade >= 18) {',blanks:[{a:'if',h:'palavra-chave de condição'}],hl:[{w:'>=',c:'op'},{w:'18',c:'num'}]},
+      {t:'    print("Pode votar!");',hl:[{w:'print',c:'fn'},{w:'"Pode votar!"',c:'str'}]},
+      {t:'} _____ {',blanks:[{a:'else',h:'caso contrário'}]},
+      {t:'    print("Não pode votar.");',hl:[{w:'print',c:'fn'},{w:'"Não pode votar."',c:'str'}]},
+      {t:'}'},
+    ],output:'Não pode votar.'},
+    {title:'Classificação de nota',diff:'easy',concept:'if / else if',desc:'Preencha as lacunas para classificar a nota: A (≥90), B (≥70), C (≥50), ou F.',lines:[
+      {t:'int nota = 75;',hl:[{w:'int',c:'kw'},{w:'75',c:'num'}]},
+      {t:''},
+      {t:'if (nota >= 90) {',hl:[{w:'if',c:'kw'},{w:'>=',c:'op'},{w:'90',c:'num'}]},
+      {t:'    print("A");',hl:[{w:'print',c:'fn'},{w:'"A"',c:'str'}]},
+      {t:'} _____ if (nota >= 70) {',blanks:[{a:'else',h:'encadeamento de condições'}],hl:[{w:'if',c:'kw'},{w:'>=',c:'op'},{w:'70',c:'num'}]},
+      {t:'    print("B");',hl:[{w:'print',c:'fn'},{w:'"B"',c:'str'}]},
+      {t:'} else if (nota >= _____) {',blanks:[{a:'50',h:'nota mínima para C'}],hl:[{w:'else',c:'kw'},{w:'if',c:'kw'},{w:'>=',c:'op'}]},
+      {t:'    print("C");',hl:[{w:'print',c:'fn'},{w:'"C"',c:'str'}]},
+      {t:'} else {',hl:[{w:'else',c:'kw'}]},
+      {t:'    print("F");',hl:[{w:'print',c:'fn'},{w:'"F"',c:'str'}]},
+      {t:'}'},
+    ],output:'B'},
+    {title:'Contador com for loop',diff:'medium',concept:'for',desc:'Complete o loop que conta de 1 até 5 e imprime cada número.',lines:[
+      {t:'_____ (int i = 1; i <= 5; _____) {',blanks:[{a:'for',h:'estrutura de repetição'},{a:'i++',h:'incrementa i em 1'}],hl:[{w:'int',c:'kw'},{w:'1',c:'num'},{w:'<=',c:'op'},{w:'5',c:'num'}]},
+      {t:'    print(i);',hl:[{w:'print',c:'fn'}]},
+      {t:'}'},
+    ],output:'1  2  3  4  5'},
+    {title:'Soma de números pares',diff:'medium',concept:'while + if',desc:'Preencha as lacunas para somar apenas os números pares de 1 a 10.',lines:[
+      {t:'int soma = 0;',hl:[{w:'int',c:'kw'},{w:'0',c:'num'}]},
+      {t:'int n = 1;',hl:[{w:'int',c:'kw'},{w:'1',c:'num'}]},
+      {t:''},
+      {t:'while (n <= _____) {',blanks:[{a:'10',h:'limite do loop'}],hl:[{w:'while',c:'kw'},{w:'<=',c:'op'}]},
+      {t:'    if (n % 2 == _____) {',blanks:[{a:'0',h:'resto da divisão por 2 é zero'}],hl:[{w:'if',c:'kw'},{w:'%',c:'op'},{w:'2',c:'num'},{w:'==',c:'op'}]},
+      {t:'        soma = soma + n;',hl:[{w:'+',c:'op'}]},
+      {t:'    }'},
+      {t:'    n++;',hl:[{w:'++',c:'op'}]},
+      {t:'}'},
+      {t:''},
+      {t:'print(soma);',hl:[{w:'print',c:'fn'}]},
+    ],output:'30'},
+    {title:'Dias com switch',diff:'medium',concept:'switch / case',desc:'Complete o switch para exibir o nome do dia da semana (1 = Segunda...).',lines:[
+      {t:'int dia = 3;',hl:[{w:'int',c:'kw'},{w:'3',c:'num'}]},
+      {t:''},
+      {t:'_____ (dia) {',blanks:[{a:'switch',h:'estrutura de múltiplas escolhas'}]},
+      {t:"    case 1: print('Segunda'); _____;",blanks:[{a:'break',h:'evita executar os próximos casos'}],hl:[{w:'case',c:'kw'},{w:'1',c:'num'},{w:'print',c:'fn'}]},
+      {t:"    case 2: print('Terça');   break;",hl:[{w:'case',c:'kw'},{w:'2',c:'num'},{w:'print',c:'fn'},{w:'break',c:'kw'}]},
+      {t:"    _____ 3: print('Quarta'); break;",blanks:[{a:'case',h:'palavra-chave para cada opção'}],hl:[{w:'3',c:'num'},{w:'print',c:'fn'},{w:'break',c:'kw'}]},
+      {t:"    default: print('Outro dia');",hl:[{w:'default',c:'kw'},{w:'print',c:'fn'}]},
+      {t:'}'},
+    ],output:'Quarta'},
+    {title:'Busca em array',diff:'hard',concept:'for + if + break',desc:'Complete o código que busca o número 7 no array e imprime sua posição.',lines:[
+      {t:'int nums[] = {3, 8, 7, 1, 5};',hl:[{w:'int',c:'kw'},{w:'3',c:'num'},{w:'8',c:'num'},{w:'7',c:'num'},{w:'1',c:'num'},{w:'5',c:'num'}]},
+      {t:'int pos = -1;',hl:[{w:'int',c:'kw'},{w:'-1',c:'num'}]},
+      {t:''},
+      {t:'for (int i = 0; i < _____; i++) {',blanks:[{a:'5',h:'tamanho do array'}],hl:[{w:'for',c:'kw'},{w:'int',c:'kw'},{w:'0',c:'num'},{w:'<',c:'op'}]},
+      {t:'    if (nums[i] == _____) {',blanks:[{a:'7',h:'valor que buscamos'}],hl:[{w:'if',c:'kw'},{w:'==',c:'op'}]},
+      {t:'        pos = _____;',blanks:[{a:'i',h:'guarda o índice encontrado'}]},
+      {t:'        _____;',blanks:[{a:'break',h:'encerra o loop'}]},
+      {t:'    }'},
+      {t:'}'},
+      {t:''},
+      {t:'print("Posição: " + pos);',hl:[{w:'print',c:'fn'},{w:'"Posição: "',c:'str'}]},
+    ],output:'Posição: 2'},
+    {title:'Operador ternário',diff:'easy',concept:'ternário',desc:'Use o operador ternário para classificar a temperatura em uma única linha.',lines:[
+      {t:'int temp = 28;',hl:[{w:'int',c:'kw'},{w:'28',c:'num'}]},
+      {t:''},
+      {t:'string clima = (temp > 25) _____ "quente" _____ "frio";',blanks:[{a:'?',h:'operador condicional ternário'},{a:':',h:'valor quando falso'}],hl:[{w:'string',c:'kw'},{w:'>',c:'op'},{w:'25',c:'num'},{w:'"quente"',c:'str'},{w:'"frio"',c:'str'}]},
+      {t:'print(clima);',hl:[{w:'print',c:'fn'}]},
+    ],output:'quente'},
+    {title:'Loop aninhado',diff:'medium',concept:'loops aninhados',desc:'Complete o loop interno para exibir a tabuada de 1 a 3.',lines:[
+      {t:'for (int i = 1; i <= 3; i++) {',hl:[{w:'for',c:'kw'},{w:'int',c:'kw'},{w:'1',c:'num'},{w:'<=',c:'op'},{w:'3',c:'num'}]},
+      {t:'    _____ (int j = 1; j <= 3; j++) {',blanks:[{a:'for',h:'estrutura de repetição interna'}],hl:[{w:'int',c:'kw'},{w:'1',c:'num'},{w:'<=',c:'op'},{w:'3',c:'num'}]},
+      {t:'        print(i + "x" + j + "=" + (i*j));',hl:[{w:'print',c:'fn'}]},
+      {t:'    }'},
+      {t:'}'},
+    ],output:'1x1=1  1x2=2  ...  3x3=9'},
+    {title:'Repetição com do-while',diff:'medium',concept:'do-while',desc:'Complete o do-while que sempre executa pelo menos uma vez antes de checar a condição.',lines:[
+      {t:'int n = 1;',hl:[{w:'int',c:'kw'},{w:'1',c:'num'}]},
+      {t:''},
+      {t:'_____ {',blanks:[{a:'do',h:'executa antes de verificar a condição'}]},
+      {t:'    print(n);',hl:[{w:'print',c:'fn'}]},
+      {t:'    n++;',hl:[{w:'++',c:'op'}]},
+      {t:'} _____ (n <= 3);',blanks:[{a:'while',h:'condição de repetição'}],hl:[{w:'<=',c:'op'},{w:'3',c:'num'}]},
+    ],output:'1  2  3'},
+    {title:'break e continue',diff:'medium',concept:'break / continue',desc:'Complete o loop que pula os números pares e para ao passar de 7.',lines:[
+      {t:'for (int i = 1; i <= 10; i++) {',hl:[{w:'for',c:'kw'},{w:'int',c:'kw'},{w:'1',c:'num'},{w:'<=',c:'op'},{w:'10',c:'num'}]},
+      {t:'    if (i % 2 == 0) _____;',blanks:[{a:'continue',h:'pula para a próxima iteração'}],hl:[{w:'if',c:'kw'},{w:'%',c:'op'},{w:'2',c:'num'},{w:'==',c:'op'},{w:'0',c:'num'}]},
+      {t:'    if (i > 7) _____;',blanks:[{a:'break',h:'encerra o loop'}],hl:[{w:'if',c:'kw'},{w:'>',c:'op'},{w:'7',c:'num'}]},
+      {t:'    print(i);',hl:[{w:'print',c:'fn'}]},
+      {t:'}'},
+    ],output:'1  3  5  7'},
+  ]},
+
+  {id:'tipos',label:'Tipos de Dados',accent:'#60a5fa',dim:'#1e2f4a',challenges:[
+    {title:'Declarando uma string',diff:'easy',concept:'string',desc:'Declare a variável com o tipo correto para armazenar texto.',lines:[
+      {t:'_____ mensagem = "Aprendendo programação!";',blanks:[{a:'string',h:'tipo para armazenar texto'}],hl:[{w:'"Aprendendo programação!"',c:'str'}]},
+      {t:'print(mensagem);',hl:[{w:'print',c:'fn'}]},
+    ],output:'Aprendendo programação!'},
+    {title:'Declarando inteiros',diff:'easy',concept:'int',desc:'Declare as variáveis com o tipo correto e calcule a área de um retângulo.',lines:[
+      {t:'_____ largura = 8;',blanks:[{a:'int',h:'tipo para números inteiros'}],hl:[{w:'8',c:'num'}]},
+      {t:'_____ altura = 5;',blanks:[{a:'int',h:'tipo para números inteiros'}],hl:[{w:'5',c:'num'}]},
+      {t:'int area = largura * altura;',hl:[{w:'int',c:'kw'},{w:'*',c:'op'}]},
+      {t:'print(area);',hl:[{w:'print',c:'fn'}]},
+    ],output:'40'},
+    {title:'Números decimais (float)',diff:'easy',concept:'float',desc:'Use o tipo correto para armazenar valores com casas decimais.',lines:[
+      {t:'_____ preco = 200.0;',blanks:[{a:'float',h:'tipo para números decimais'}],hl:[{w:'200.0',c:'num'}]},
+      {t:'_____ desconto = 0.15;',blanks:[{a:'float',h:'tipo para números decimais'}],hl:[{w:'0.15',c:'num'}]},
+      {t:'float final = preco - (preco * desconto);',hl:[{w:'float',c:'kw'},{w:'*',c:'op'},{w:'-',c:'op'}]},
+      {t:'print(final);',hl:[{w:'print',c:'fn'}]},
+    ],output:'170.0'},
+    {title:'Tipo booleano',diff:'easy',concept:'bool',desc:'Declare as variáveis booleanas e use-as para controlar o acesso.',lines:[
+      {t:'_____ temIngresso = true;',blanks:[{a:'bool',h:'tipo verdadeiro ou falso'}],hl:[{w:'true',c:'kw'}]},
+      {t:'_____ eventoCancelado = false;',blanks:[{a:'bool',h:'tipo verdadeiro ou falso'}],hl:[{w:'false',c:'kw'}]},
+      {t:''},
+      {t:'if (temIngresso && !eventoCancelado) {',hl:[{w:'if',c:'kw'},{w:'!',c:'op'}]},
+      {t:'    print("Pode entrar!");',hl:[{w:'print',c:'fn'},{w:'"Pode entrar!"',c:'str'}]},
+      {t:'}'},
+    ],output:'Pode entrar!'},
+    {title:'Constantes',diff:'easy',concept:'const',desc:'Use o modificador correto para declarar um valor que não pode ser alterado.',lines:[
+      {t:'_____ PI = 3.14;',blanks:[{a:'const',h:'valor que não pode ser alterado'}],hl:[{w:'3.14',c:'num'}]},
+      {t:'int raio = 5;',hl:[{w:'int',c:'kw'},{w:'5',c:'num'}]},
+      {t:'float area = PI * raio * raio;',hl:[{w:'float',c:'kw'},{w:'*',c:'op'}]},
+      {t:'print(area);',hl:[{w:'print',c:'fn'}]},
+    ],output:'78.5'},
+    {title:'Conversão de tipos',diff:'medium',concept:'casting',desc:'Converta a temperatura de float para int, truncando os decimais.',lines:[
+      {t:'float temperatura = 36.9;',hl:[{w:'float',c:'kw'},{w:'36.9',c:'num'}]},
+      {t:'_____ inteira = int(temperatura);',blanks:[{a:'int',h:'tipo do resultado da conversão'}],hl:[{w:'int',c:'kw'}]},
+      {t:'print(inteira);',hl:[{w:'print',c:'fn'}]},
+    ],output:'36'},
+    {title:'Concatenando strings',diff:'easy',concept:'string',desc:'Una as variáveis para formar uma frase completa usando o operador +.',lines:[
+      {t:'string nome = "Ana";',hl:[{w:'string',c:'kw'},{w:'"Ana"',c:'str'}]},
+      {t:'int idade = 30;',hl:[{w:'int',c:'kw'},{w:'30',c:'num'}]},
+      {t:'string frase = "Olá, " _____ nome _____ "! Você tem " _____ idade _____ " anos.";',blanks:[{a:'+',h:'operador de concatenação'},{a:'+',h:'operador de concatenação'},{a:'+',h:'operador de concatenação'},{a:'+',h:'operador de concatenação'}],hl:[{w:'string',c:'kw'},{w:'"Olá, "',c:'str'},{w:'"! Você tem "',c:'str'},{w:'" anos."',c:'str'}]},
+      {t:'print(frase);',hl:[{w:'print',c:'fn'}]},
+    ],output:'Olá, Ana! Você tem 30 anos.'},
+    {title:'Valor nulo',diff:'easy',concept:'null',desc:'Inicialize a variável como nula e verifique antes de usá-la.',lines:[
+      {t:'string usuario = _____;',blanks:[{a:'null',h:'ausência de valor'}]},
+      {t:''},
+      {t:'if (usuario == null) {',hl:[{w:'if',c:'kw'},{w:'==',c:'op'},{w:'null',c:'kw'}]},
+      {t:'    print("Nenhum usuário logado.");',hl:[{w:'print',c:'fn'},{w:'"Nenhum usuário logado."',c:'str'}]},
+      {t:'} else {',hl:[{w:'else',c:'kw'}]},
+      {t:'    print("Olá, " + usuario);',hl:[{w:'print',c:'fn'}]},
+      {t:'}'},
+    ],output:'Nenhum usuário logado.'},
+    {title:'Arrays como tipo de dado',diff:'medium',concept:'array',desc:'Declare o array com o tipo correto e use o índice variável para somar as notas.',lines:[
+      {t:'_____ notas = {8.0, 7.5, 9.0, 6.5};',blanks:[{a:'float[]',h:'array de decimais'}],hl:[{w:'8.0',c:'num'},{w:'7.5',c:'num'},{w:'9.0',c:'num'},{w:'6.5',c:'num'}]},
+      {t:'float soma = 0;',hl:[{w:'float',c:'kw'},{w:'0',c:'num'}]},
+      {t:'for (int i = 0; i < 4; i++) {',hl:[{w:'for',c:'kw'},{w:'int',c:'kw'},{w:'0',c:'num'},{w:'<',c:'op'},{w:'4',c:'num'}]},
+      {t:'    soma = soma + notas[_____];',blanks:[{a:'i',h:'índice variável do loop'}],hl:[{w:'+',c:'op'}]},
+      {t:'}'},
+      {t:'print(soma / 4);',hl:[{w:'print',c:'fn'},{w:'/',c:'op'},{w:'4',c:'num'}]},
+    ],output:'7.75'},
+    {title:'Objetos como tipo de dado',diff:'medium',concept:'object',desc:'Declare o objeto com o tipo correto e acesse suas propriedades.',lines:[
+      {t:'_____ aluno = {',blanks:[{a:'object',h:'tipo para estrutura com propriedades'}]},
+      {t:'    nome: "Pedro",',hl:[{w:'"Pedro"',c:'str'}]},
+      {t:'    nota: 8.5,',hl:[{w:'8.5',c:'num'}]},
+      {t:'    aprovado: true',hl:[{w:'true',c:'kw'}]},
+      {t:'};'},
+      {t:'print(aluno.nome + " — nota: " + aluno._____);',blanks:[{a:'nota',h:'propriedade da nota'}],hl:[{w:'print',c:'fn'},{w:'" — nota: "',c:'str'}]},
+    ],output:'Pedro — nota: 8.5'},
+  ]},
+
+  {id:'operadores',label:'Operadores',accent:'#fbbf24',dim:'#3d2e0e',challenges:[
+    {title:'Adição e subtração',diff:'easy',concept:'aritméticos',desc:'Use os operadores corretos para calcular o saldo após depósito e saque.',lines:[
+      {t:'int saldo = 1000;',hl:[{w:'int',c:'kw'},{w:'1000',c:'num'}]},
+      {t:'int deposito = 500;',hl:[{w:'int',c:'kw'},{w:'500',c:'num'}]},
+      {t:'int saque = 300;',hl:[{w:'int',c:'kw'},{w:'300',c:'num'}]},
+      {t:''},
+      {t:'saldo = saldo _____ deposito;',blanks:[{a:'+',h:'adiciona ao saldo'}]},
+      {t:'saldo = saldo _____ saque;',blanks:[{a:'-',h:'subtrai do saldo'}]},
+      {t:'print(saldo);',hl:[{w:'print',c:'fn'}]},
+    ],output:'1200'},
+    {title:'Multiplicação e divisão',diff:'easy',concept:'aritméticos',desc:'Calcule o preço total e divida igualmente entre os amigos.',lines:[
+      {t:'int preco = 120;',hl:[{w:'int',c:'kw'},{w:'120',c:'num'}]},
+      {t:'int quantidade = 3;',hl:[{w:'int',c:'kw'},{w:'3',c:'num'}]},
+      {t:'int total = preco _____ quantidade;',blanks:[{a:'*',h:'operador de multiplicação'}]},
+      {t:'int porPessoa = total _____ 4;',blanks:[{a:'/',h:'operador de divisão'}],hl:[{w:'4',c:'num'}]},
+      {t:'print(porPessoa);',hl:[{w:'print',c:'fn'}]},
+    ],output:'90'},
+    {title:'Operador módulo (%)',diff:'easy',concept:'módulo',desc:'Use o módulo para verificar se o número é par ou ímpar.',lines:[
+      {t:'int numero = 17;',hl:[{w:'int',c:'kw'},{w:'17',c:'num'}]},
+      {t:'int resto = numero _____ 2;',blanks:[{a:'%',h:'retorna o resto da divisão'}],hl:[{w:'2',c:'num'}]},
+      {t:''},
+      {t:'if (resto == 0) {',hl:[{w:'if',c:'kw'},{w:'==',c:'op'},{w:'0',c:'num'}]},
+      {t:'    print("Par");',hl:[{w:'print',c:'fn'},{w:'"Par"',c:'str'}]},
+      {t:'} else {',hl:[{w:'else',c:'kw'}]},
+      {t:'    print("Ímpar — resto: " + resto);',hl:[{w:'print',c:'fn'},{w:'"Ímpar — resto: "',c:'str'}]},
+      {t:'}'},
+    ],output:'Ímpar — resto: 1'},
+    {title:'Igualdade e diferença',diff:'easy',concept:'== / !=',desc:'Compare as senhas usando os operadores de igualdade e diferença.',lines:[
+      {t:'string digitada = "abc123";',hl:[{w:'string',c:'kw'},{w:'"abc123"',c:'str'}]},
+      {t:'string correta = "abc123";',hl:[{w:'string',c:'kw'},{w:'"abc123"',c:'str'}]},
+      {t:''},
+      {t:'print(digitada _____ correta);',blanks:[{a:'==',h:'verifica igualdade'}],hl:[{w:'print',c:'fn'}]},
+      {t:'print(digitada _____ correta);',blanks:[{a:'!=',h:'verifica diferença'}],hl:[{w:'print',c:'fn'}]},
+    ],output:'true / false'},
+    {title:'Comparando valores',diff:'easy',concept:'> / <',desc:'Verifique se a temperatura está dentro da faixa confortável (entre 15 e 30).',lines:[
+      {t:'int temp = 22;',hl:[{w:'int',c:'kw'},{w:'22',c:'num'}]},
+      {t:''},
+      {t:'bool frio = temp _____ 15;',blanks:[{a:'<',h:'menor que'}],hl:[{w:'bool',c:'kw'},{w:'15',c:'num'}]},
+      {t:'bool calor = temp _____ 30;',blanks:[{a:'>',h:'maior que'}],hl:[{w:'bool',c:'kw'},{w:'30',c:'num'}]},
+      {t:'bool ok = !frio && !calor;',hl:[{w:'bool',c:'kw'}]},
+      {t:'print(ok);',hl:[{w:'print',c:'fn'}]},
+    ],output:'true'},
+    {title:'Operador E lógico (&&)',diff:'easy',concept:'&&',desc:'Use o operador E para verificar se o usuário pode fazer login.',lines:[
+      {t:'bool senhaCorreta = true;',hl:[{w:'bool',c:'kw'},{w:'true',c:'kw'}]},
+      {t:'bool contaAtiva = true;',hl:[{w:'bool',c:'kw'},{w:'true',c:'kw'}]},
+      {t:''},
+      {t:'bool podeLogar = senhaCorreta _____ contaAtiva;',blanks:[{a:'&&',h:'verdadeiro apenas se ambos forem verdadeiros'}],hl:[{w:'bool',c:'kw'}]},
+      {t:'print(podeLogar);',hl:[{w:'print',c:'fn'}]},
+    ],output:'true'},
+    {title:'Operador OU lógico (||)',diff:'easy',concept:'||',desc:'Use o operador OU para verificar se o aluno tem direito a isenção.',lines:[
+      {t:'bool bolsista = false;',hl:[{w:'bool',c:'kw'},{w:'false',c:'kw'}]},
+      {t:'bool funcionario = true;',hl:[{w:'bool',c:'kw'},{w:'true',c:'kw'}]},
+      {t:''},
+      {t:'bool temIsencao = bolsista _____ funcionario;',blanks:[{a:'||',h:'verdadeiro se pelo menos um for verdadeiro'}],hl:[{w:'bool',c:'kw'}]},
+      {t:'print(temIsencao);',hl:[{w:'print',c:'fn'}]},
+    ],output:'true'},
+    {title:'Operador NÃO lógico (!)',diff:'easy',concept:'!',desc:'Use a negação para exibir a mensagem quando o usuário não está logado.',lines:[
+      {t:'bool logado = false;',hl:[{w:'bool',c:'kw'},{w:'false',c:'kw'}]},
+      {t:''},
+      {t:'if (_____ logado) {',blanks:[{a:'!',h:'inverte o valor booleano'}],hl:[{w:'if',c:'kw'}]},
+      {t:'    print("Faça login para continuar.");',hl:[{w:'print',c:'fn'},{w:'"Faça login para continuar."',c:'str'}]},
+      {t:'}'},
+    ],output:'Faça login para continuar.'},
+    {title:'Atribuição composta',diff:'medium',concept:'+= / -=',desc:'Atualize o estoque usando os operadores de atribuição composta.',lines:[
+      {t:'int estoque = 100;',hl:[{w:'int',c:'kw'},{w:'100',c:'num'}]},
+      {t:'estoque _____ 50;',blanks:[{a:'+=',h:'adiciona e atribui'}],hl:[{w:'50',c:'num'}]},
+      {t:'estoque _____ 30;',blanks:[{a:'-=',h:'subtrai e atribui'}],hl:[{w:'30',c:'num'}]},
+      {t:'print(estoque);',hl:[{w:'print',c:'fn'}]},
+    ],output:'120'},
+    {title:'Incremento e decremento',diff:'easy',concept:'++ / --',desc:'Use os operadores de incremento e decremento para controlar as vidas.',lines:[
+      {t:'int vidas = 3;',hl:[{w:'int',c:'kw'},{w:'3',c:'num'}]},
+      {t:'vidas_____;',blanks:[{a:'--',h:'decrementa em 1'}]},
+      {t:'vidas_____;',blanks:[{a:'--',h:'decrementa em 1'}]},
+      {t:'vidas_____;',blanks:[{a:'++',h:'incrementa em 1'}]},
+      {t:'print(vidas);',hl:[{w:'print',c:'fn'}]},
+    ],output:'2'},
+  ]},
+
+  {id:'controle',label:'Estruturas de Controle',accent:'#f87171',dim:'#3d1414',challenges:[
+    {title:'if simples',diff:'easy',concept:'if',desc:'Complete a estrutura condicional que exibe mensagem apenas se o número for positivo.',lines:[
+      {t:'int numero = 42;',hl:[{w:'int',c:'kw'},{w:'42',c:'num'}]},
+      {t:''},
+      {t:'_____ (numero > 0) {',blanks:[{a:'if',h:'palavra-chave de condição'}],hl:[{w:'>',c:'op'},{w:'0',c:'num'}]},
+      {t:'    print("Número positivo!");',hl:[{w:'print',c:'fn'},{w:'"Número positivo!"',c:'str'}]},
+      {t:'}'},
+    ],output:'Número positivo!'},
+    {title:'if / else',diff:'easy',concept:'if / else',desc:'Verifique se o saldo é suficiente para realizar a compra.',lines:[
+      {t:'float saldo = 150.0;',hl:[{w:'float',c:'kw'},{w:'150.0',c:'num'}]},
+      {t:'float preco = 200.0;',hl:[{w:'float',c:'kw'},{w:'200.0',c:'num'}]},
+      {t:''},
+      {t:'if (saldo _____ preco) {',blanks:[{a:'>=',h:'maior ou igual'}],hl:[{w:'if',c:'kw'}]},
+      {t:'    print("Compra aprovada!");',hl:[{w:'print',c:'fn'},{w:'"Compra aprovada!"',c:'str'}]},
+      {t:'} _____ {',blanks:[{a:'else',h:'caso contrário'}]},
+      {t:'    print("Saldo insuficiente.");',hl:[{w:'print',c:'fn'},{w:'"Saldo insuficiente."',c:'str'}]},
+      {t:'}'},
+    ],output:'Saldo insuficiente.'},
+    {title:'else if',diff:'easy',concept:'else if',desc:'Classifique a velocidade do veículo usando condições encadeadas.',lines:[
+      {t:'int velocidade = 95;',hl:[{w:'int',c:'kw'},{w:'95',c:'num'}]},
+      {t:''},
+      {t:'if (velocidade <= 60) {',hl:[{w:'if',c:'kw'},{w:'<=',c:'op'},{w:'60',c:'num'}]},
+      {t:'    print("Normal");',hl:[{w:'print',c:'fn'},{w:'"Normal"',c:'str'}]},
+      {t:'} _____ if (velocidade <= 100) {',blanks:[{a:'else',h:'encadeia outra condição'}],hl:[{w:'if',c:'kw'},{w:'<=',c:'op'},{w:'100',c:'num'}]},
+      {t:'    print("Atenção");',hl:[{w:'print',c:'fn'},{w:'"Atenção"',c:'str'}]},
+      {t:'} else {',hl:[{w:'else',c:'kw'}]},
+      {t:'    print("Excesso!");',hl:[{w:'print',c:'fn'},{w:'"Excesso!"',c:'str'}]},
+      {t:'}'},
+    ],output:'Atenção'},
+    {title:'Loop for',diff:'easy',concept:'for',desc:'Complete o loop for que soma os números de 1 a 10.',lines:[
+      {t:'int soma = 0;',hl:[{w:'int',c:'kw'},{w:'0',c:'num'}]},
+      {t:''},
+      {t:'_____ (int i = 1; i _____ 10; i++) {',blanks:[{a:'for',h:'estrutura de repetição contada'},{a:'<=',h:'condição de parada'}],hl:[{w:'int',c:'kw'},{w:'1',c:'num'},{w:'10',c:'num'}]},
+      {t:'    soma = soma + i;',hl:[{w:'+',c:'op'}]},
+      {t:'}'},
+      {t:'print(soma);',hl:[{w:'print',c:'fn'}]},
+    ],output:'55'},
+    {title:'Loop while',diff:'easy',concept:'while',desc:'Use o while para dobrar o valor até passar de 100.',lines:[
+      {t:'int valor = 1;',hl:[{w:'int',c:'kw'},{w:'1',c:'num'}]},
+      {t:''},
+      {t:'_____ (valor _____ 100) {',blanks:[{a:'while',h:'repete enquanto a condição for verdadeira'},{a:'<=',h:'condição de parada'}],hl:[{w:'100',c:'num'}]},
+      {t:'    valor = valor * 2;',hl:[{w:'*',c:'op'},{w:'2',c:'num'}]},
+      {t:'}'},
+      {t:'print(valor);',hl:[{w:'print',c:'fn'}]},
+    ],output:'128'},
+    {title:'Loop do-while',diff:'medium',concept:'do-while',desc:'Complete a contagem regressiva com do-while (executa pelo menos uma vez).',lines:[
+      {t:'int n = 5;',hl:[{w:'int',c:'kw'},{w:'5',c:'num'}]},
+      {t:''},
+      {t:'_____ {',blanks:[{a:'do',h:'executa antes de verificar'}]},
+      {t:'    print(n);',hl:[{w:'print',c:'fn'}]},
+      {t:'    n_____;',blanks:[{a:'--',h:'decrementa n'}]},
+      {t:'} _____ (n > 0);',blanks:[{a:'while',h:'condição de continuação'}],hl:[{w:'>',c:'op'},{w:'0',c:'num'}]},
+    ],output:'5  4  3  2  1'},
+    {title:'switch / case',diff:'medium',concept:'switch / case',desc:'Complete o switch que exibe a estação do ano conforme o mês.',lines:[
+      {t:'int mes = 7;',hl:[{w:'int',c:'kw'},{w:'7',c:'num'}]},
+      {t:''},
+      {t:'_____ (mes) {',blanks:[{a:'switch',h:'estrutura de múltipla escolha'}]},
+      {t:'    case 12: case 1: case 2: print("Verão");    _____;',blanks:[{a:'break',h:'evita cair no próximo caso'}],hl:[{w:'case',c:'kw'},{w:'12',c:'num'},{w:'1',c:'num'},{w:'2',c:'num'},{w:'print',c:'fn'},{w:'"Verão"',c:'str'}]},
+      {t:'    case 3:  case 4: case 5: print("Outono");   break;',hl:[{w:'case',c:'kw'},{w:'3',c:'num'},{w:'4',c:'num'},{w:'5',c:'num'},{w:'print',c:'fn'},{w:'"Outono"',c:'str'},{w:'break',c:'kw'}]},
+      {t:'    _____ 6:  case 7: case 8: print("Inverno"); break;',blanks:[{a:'case',h:'palavra-chave para cada opção'}],hl:[{w:'6',c:'num'},{w:'7',c:'num'},{w:'8',c:'num'},{w:'print',c:'fn'},{w:'"Inverno"',c:'str'},{w:'break',c:'kw'}]},
+      {t:'    default: print("Primavera");',hl:[{w:'default',c:'kw'},{w:'print',c:'fn'},{w:'"Primavera"',c:'str'}]},
+      {t:'}'},
+    ],output:'Inverno'},
+    {title:'Usando break',diff:'easy',concept:'break',desc:'Encontre o primeiro número divisível por 7 no intervalo de 1 a 50.',lines:[
+      {t:'for (int i = 1; i <= 50; i++) {',hl:[{w:'for',c:'kw'},{w:'int',c:'kw'},{w:'1',c:'num'},{w:'<=',c:'op'},{w:'50',c:'num'}]},
+      {t:'    if (i % 7 == 0) {',hl:[{w:'if',c:'kw'},{w:'%',c:'op'},{w:'7',c:'num'},{w:'==',c:'op'},{w:'0',c:'num'}]},
+      {t:'        print(i);',hl:[{w:'print',c:'fn'}]},
+      {t:'        _____;',blanks:[{a:'break',h:'encerra o loop após encontrar'}]},
+      {t:'    }'},
+      {t:'}'},
+    ],output:'7'},
+    {title:'Usando continue',diff:'easy',concept:'continue',desc:'Imprima apenas os números de 1 a 10 que não são múltiplos de 3.',lines:[
+      {t:'for (int i = 1; i <= 10; i++) {',hl:[{w:'for',c:'kw'},{w:'int',c:'kw'},{w:'1',c:'num'},{w:'<=',c:'op'},{w:'10',c:'num'}]},
+      {t:'    if (i % 3 == 0) _____;',blanks:[{a:'continue',h:'pula para a próxima iteração'}],hl:[{w:'if',c:'kw'},{w:'%',c:'op'},{w:'3',c:'num'},{w:'==',c:'op'},{w:'0',c:'num'}]},
+      {t:'    print(i);',hl:[{w:'print',c:'fn'}]},
+      {t:'}'},
+    ],output:'1  2  4  5  7  8  10'},
+    {title:'Tratamento de erros (try/catch)',diff:'hard',concept:'try / catch',desc:'Proteja o código contra erros usando as palavras-chave corretas.',lines:[
+      {t:'int[] nums = {10, 20, 30};',hl:[{w:'int',c:'kw'},{w:'10',c:'num'},{w:'20',c:'num'},{w:'30',c:'num'}]},
+      {t:''},
+      {t:'_____ {',blanks:[{a:'try',h:'bloco de código protegido'}]},
+      {t:'    print(nums[5]);',hl:[{w:'print',c:'fn'},{w:'5',c:'num'}]},
+      {t:'} _____ (erro) {',blanks:[{a:'catch',h:'captura o erro'}]},
+      {t:'    print("Erro: índice inválido.");',hl:[{w:'print',c:'fn'},{w:'"Erro: índice inválido."',c:'str'}]},
+      {t:'}'},
+    ],output:'Erro: índice inválido.'},
+  ]},
+
+  {id:'dados',label:'Estrutura de Dados',accent:'#a78bfa',dim:'#2d1f4a',challenges:[
+    {title:'Criando um array',diff:'easy',concept:'array',desc:'Declare o array com o tipo correto para armazenar os dias da semana.',lines:[
+      {t:"_____ dias = {'Seg','Ter','Qua','Qui','Sex'};",blanks:[{a:'string[]',h:'array de strings'}]},
+      {t:'print(dias[0]);',hl:[{w:'print',c:'fn'},{w:'0',c:'num'}]},
+      {t:'print(dias[4]);',hl:[{w:'print',c:'fn'},{w:'4',c:'num'}]},
+    ],output:'Seg / Sex'},
+    {title:'Acesso por índice',diff:'easy',concept:'índice',desc:'Acesse o terceiro e o último elemento (índices começam em 0).',lines:[
+      {t:'int[] primos = {2, 3, 5, 7, 11, 13};',hl:[{w:'int',c:'kw'},{w:'2',c:'num'},{w:'3',c:'num'},{w:'5',c:'num'},{w:'7',c:'num'},{w:'11',c:'num'},{w:'13',c:'num'}]},
+      {t:''},
+      {t:'int terceiro = primos[_____];',blanks:[{a:'2',h:'índices começam em 0'}],hl:[{w:'int',c:'kw'}]},
+      {t:'int ultimo = primos[_____];',blanks:[{a:'5',h:'último índice de 6 elementos'}],hl:[{w:'int',c:'kw'}]},
+      {t:'print(terceiro + " / " + ultimo);',hl:[{w:'print',c:'fn'}]},
+    ],output:'5 / 13'},
+    {title:'Modificando elementos',diff:'easy',concept:'array',desc:'Corrija o segundo elemento do array substituindo pelo valor certo.',lines:[
+      {t:"string[] frutas = {'maçã','mamão','uva'};",hl:[{w:'string',c:'kw'}]},
+      {t:'frutas[_____] = "banana";',blanks:[{a:'1',h:'índice do segundo elemento'}],hl:[{w:'"banana"',c:'str'}]},
+      {t:'print(frutas[1]);',hl:[{w:'print',c:'fn'},{w:'1',c:'num'}]},
+    ],output:'banana'},
+    {title:'Adicionando elementos (push)',diff:'easy',concept:'push',desc:'Adicione um novo item ao final da lista e verifique o novo tamanho.',lines:[
+      {t:'string[] lista = {"leite","pão","ovos"};',hl:[{w:'string',c:'kw'}]},
+      {t:'lista._____("manteiga");',blanks:[{a:'push',h:'adiciona ao final do array'}],hl:[{w:'"manteiga"',c:'str'}]},
+      {t:'print(lista[3]);',hl:[{w:'print',c:'fn'},{w:'3',c:'num'}]},
+      {t:'print(lista.length);',hl:[{w:'print',c:'fn'}]},
+    ],output:'manteiga / 4'},
+    {title:'Removendo elementos (pop)',diff:'easy',concept:'pop',desc:'Remova o último elemento da fila e verifique o tamanho resultante.',lines:[
+      {t:'int[] fila = {10, 20, 30, 40, 50};',hl:[{w:'int',c:'kw'},{w:'10',c:'num'},{w:'20',c:'num'},{w:'30',c:'num'},{w:'40',c:'num'},{w:'50',c:'num'}]},
+      {t:'int removido = fila._____;',blanks:[{a:'pop()',h:'remove e retorna o último elemento'}],hl:[{w:'int',c:'kw'}]},
+      {t:'print(removido);',hl:[{w:'print',c:'fn'}]},
+      {t:'print(fila.length);',hl:[{w:'print',c:'fn'}]},
+    ],output:'50 / 4'},
+    {title:'Tamanho do array (length)',diff:'medium',concept:'length',desc:'Use length para percorrer o array e encontrar o maior valor.',lines:[
+      {t:'int[] numeros = {3, 7, 2, 9, 4, 6};',hl:[{w:'int',c:'kw'},{w:'3',c:'num'},{w:'7',c:'num'},{w:'2',c:'num'},{w:'9',c:'num'},{w:'4',c:'num'},{w:'6',c:'num'}]},
+      {t:'int maior = numeros[0];',hl:[{w:'int',c:'kw'},{w:'0',c:'num'}]},
+      {t:''},
+      {t:'for (int i = 1; i < numeros._____; i++) {',blanks:[{a:'length',h:'propriedade que retorna o tamanho'}],hl:[{w:'for',c:'kw'},{w:'int',c:'kw'},{w:'1',c:'num'},{w:'<',c:'op'}]},
+      {t:'    if (numeros[i] > maior) maior = numeros[i];',hl:[{w:'if',c:'kw'},{w:'>',c:'op'}]},
+      {t:'}'},
+      {t:'print(maior);',hl:[{w:'print',c:'fn'}]},
+    ],output:'9'},
+    {title:'Criando um objeto',diff:'easy',concept:'object',desc:'Declare o objeto com o tipo correto representando um produto.',lines:[
+      {t:'_____ produto = {',blanks:[{a:'object',h:'estrutura com pares chave-valor'}]},
+      {t:'    nome: "Teclado",',hl:[{w:'"Teclado"',c:'str'}]},
+      {t:'    preco: 150.0,',hl:[{w:'150.0',c:'num'}]},
+      {t:'    estoque: 25',hl:[{w:'25',c:'num'}]},
+      {t:'};'},
+      {t:'print(produto.nome);',hl:[{w:'print',c:'fn'}]},
+    ],output:'Teclado'},
+    {title:'Acessando propriedades',diff:'easy',concept:'object',desc:'Acesse as propriedades corretas do objeto usuário.',lines:[
+      {t:"object usuario = {nome:'Carla', email:'carla@mail.com', nivel:3};",hl:[{w:'object',c:'kw'},{w:'3',c:'num'}]},
+      {t:''},
+      {t:'print(usuario._____);',blanks:[{a:'email',h:'propriedade de contato'}],hl:[{w:'print',c:'fn'}]},
+      {t:'print(usuario._____);',blanks:[{a:'nivel',h:'propriedade numérica'}],hl:[{w:'print',c:'fn'}]},
+    ],output:'carla@mail.com / 3'},
+    {title:'Adicionando propriedades',diff:'medium',concept:'object',desc:'Adicione uma nova propriedade ao objeto existente.',lines:[
+      {t:"object carro = {marca:'Honda', modelo:'Civic'};",hl:[{w:'object',c:'kw'}]},
+      {t:'carro._____ = 2024;',blanks:[{a:'ano',h:'nome da nova propriedade'}],hl:[{w:'2024',c:'num'}]},
+      {t:'print(carro.ano);',hl:[{w:'print',c:'fn'}]},
+    ],output:'2024'},
+    {title:'Array de objetos',diff:'medium',concept:'array + object',desc:'Acesse dados específicos dentro de um array de objetos.',lines:[
+      {t:'object[] turma = [',hl:[{w:'object',c:'kw'}]},
+      {t:'    {nome:"Ana",   nota:9.0},',hl:[{w:'9.0',c:'num'}]},
+      {t:'    {nome:"Bruno", nota:7.0},',hl:[{w:'7.0',c:'num'}]},
+      {t:'    {nome:"Carla", nota:8.5}',hl:[{w:'8.5',c:'num'}]},
+      {t:'];'},
+      {t:'print(turma[_____].nome);',blanks:[{a:'1',h:'índice do segundo aluno'}],hl:[{w:'print',c:'fn'}]},
+      {t:'print(turma[2]._____);',blanks:[{a:'nota',h:'propriedade da nota'}],hl:[{w:'print',c:'fn'},{w:'2',c:'num'}]},
+    ],output:'Bruno / 8.5'},
+  ]},
+
+  {id:'funcoes',label:'Funções',accent:'#fb923c',dim:'#3d1f0e',challenges:[
+    {title:'Declarando uma função',diff:'easy',concept:'function',desc:'Declare e chame a função que exibe uma saudação.',lines:[
+      {t:'_____ saudar() {',blanks:[{a:'function',h:'palavra-chave para declarar função'}]},
+      {t:'    print("Olá, programador!");',hl:[{w:'print',c:'fn'},{w:'"Olá, programador!"',c:'str'}]},
+      {t:'}'},
+      {t:''},
+      {t:'_____;',blanks:[{a:'saudar()',h:'chama a função pelo nome'}]},
+    ],output:'Olá, programador!'},
+    {title:'Função com parâmetro',diff:'easy',concept:'parâmetros',desc:'Complete a função que recebe um nome e exibe uma saudação personalizada.',lines:[
+      {t:'function cumprimentar(_____ nome) {',blanks:[{a:'string',h:'tipo do parâmetro'}],hl:[{w:'function',c:'kw'}]},
+      {t:'    print("Olá, " + nome + "!");',hl:[{w:'print',c:'fn'},{w:'"Olá, "',c:'str'},{w:'"!"',c:'str'}]},
+      {t:'}'},
+      {t:''},
+      {t:'cumprimentar("Maria");',hl:[{w:'"Maria"',c:'str'}]},
+    ],output:'Olá, Maria!'},
+    {title:'Retorno de valor',diff:'easy',concept:'return',desc:'Complete a função que calcula o dobro de um número.',lines:[
+      {t:'function dobro(int n) {',hl:[{w:'function',c:'kw'},{w:'int',c:'kw'}]},
+      {t:'    _____ n * 2;',blanks:[{a:'return',h:'palavra-chave para retornar valor'}],hl:[{w:'*',c:'op'},{w:'2',c:'num'}]},
+      {t:'}'},
+      {t:''},
+      {t:'print(dobro(7));',hl:[{w:'print',c:'fn'},{w:'7',c:'num'}]},
+    ],output:'14'},
+    {title:'Múltiplos parâmetros',diff:'easy',concept:'parâmetros',desc:'Complete a função que calcula a área de um retângulo.',lines:[
+      {t:'function area(int largura, _____ altura) {',blanks:[{a:'int',h:'tipo do segundo parâmetro'}],hl:[{w:'function',c:'kw'},{w:'int',c:'kw'}]},
+      {t:'    return largura * altura;',hl:[{w:'return',c:'kw'},{w:'*',c:'op'}]},
+      {t:'}'},
+      {t:''},
+      {t:'print(area(6, 4));',hl:[{w:'print',c:'fn'},{w:'6',c:'num'},{w:'4',c:'num'}]},
+    ],output:'24'},
+    {title:'Valor padrão de parâmetro',diff:'medium',concept:'default',desc:'Defina um valor padrão de 10% para o desconto.',lines:[
+      {t:'function calcPreco(float valor, float desconto = _____) {',blanks:[{a:'0.1',h:'10% de desconto padrão'}],hl:[{w:'function',c:'kw'},{w:'float',c:'kw'}]},
+      {t:'    return valor - (valor * desconto);',hl:[{w:'return',c:'kw'},{w:'*',c:'op'},{w:'-',c:'op'}]},
+      {t:'}'},
+      {t:''},
+      {t:'print(calcPreco(100.0));',hl:[{w:'print',c:'fn'},{w:'100.0',c:'num'}]},
+    ],output:'90.0'},
+    {title:'Função sem retorno (void)',diff:'easy',concept:'void',desc:'Declare uma função que apenas imprime, sem retornar valor.',lines:[
+      {t:'_____ separador() {',blanks:[{a:'void',h:'indica que a função não retorna nada'}]},
+      {t:'    print("====================");',hl:[{w:'print',c:'fn'},{w:'"===================="',c:'str'}]},
+      {t:'}'},
+      {t:''},
+      {t:'separador();'},
+      {t:'print("Relatório");',hl:[{w:'print',c:'fn'},{w:'"Relatório"',c:'str'}]},
+      {t:'separador();'},
+    ],output:'==================== / Relatório / ===================='},
+    {title:'Função anônima',diff:'medium',concept:'anônima',desc:'Atribua uma função anônima à variável e use-a para calcular o quadrado.',lines:[
+      {t:'var quadrado = _____ (int x) {',blanks:[{a:'function',h:'função sem nome atribuída a variável'}],hl:[{w:'var',c:'kw'},{w:'int',c:'kw'}]},
+      {t:'    return x * x;',hl:[{w:'return',c:'kw'},{w:'*',c:'op'}]},
+      {t:'};'},
+      {t:''},
+      {t:'print(quadrado(5));',hl:[{w:'print',c:'fn'},{w:'5',c:'num'}]},
+      {t:'print(quadrado(3));',hl:[{w:'print',c:'fn'},{w:'3',c:'num'}]},
+    ],output:'25 / 9'},
+    {title:'Escopo de variável',diff:'medium',concept:'escopo',desc:'Entenda que variáveis locais não afetam variáveis externas com o mesmo nome.',lines:[
+      {t:'int contador = 0;',hl:[{w:'int',c:'kw'},{w:'0',c:'num'}]},
+      {t:''},
+      {t:'function incrementar() {',hl:[{w:'function',c:'kw'}]},
+      {t:'    _____ local = 99;',blanks:[{a:'int',h:'variável local à função'}],hl:[{w:'99',c:'num'}]},
+      {t:'    contador = contador + 1;',hl:[{w:'+',c:'op'},{w:'1',c:'num'}]},
+      {t:'}'},
+      {t:''},
+      {t:'incrementar();'},
+      {t:'incrementar();'},
+      {t:'print(contador);',hl:[{w:'print',c:'fn'}]},
+    ],output:'2'},
+    {title:'Recursão',diff:'hard',concept:'recursão',desc:'Complete a função recursiva que calcula o fatorial de um número.',lines:[
+      {t:'function fatorial(int n) {',hl:[{w:'function',c:'kw'},{w:'int',c:'kw'}]},
+      {t:'    if (n == 0) _____ 1;',blanks:[{a:'return',h:'retorna o caso base'}],hl:[{w:'if',c:'kw'},{w:'==',c:'op'},{w:'0',c:'num'},{w:'1',c:'num'}]},
+      {t:'    return n * _____(n - 1);',blanks:[{a:'fatorial',h:'chama a própria função'}],hl:[{w:'return',c:'kw'},{w:'*',c:'op'},{w:'-',c:'op'},{w:'1',c:'num'}]},
+      {t:'}'},
+      {t:''},
+      {t:'print(fatorial(5));',hl:[{w:'print',c:'fn'},{w:'5',c:'num'}]},
+    ],output:'120'},
+    {title:'Composição de funções',diff:'medium',concept:'composição',desc:'Complete a função que reutiliza outra função auxiliar.',lines:[
+      {t:'function quadrado(int n) {',hl:[{w:'function',c:'kw'},{w:'int',c:'kw'}]},
+      {t:'    return n * n;',hl:[{w:'return',c:'kw'},{w:'*',c:'op'}]},
+      {t:'}'},
+      {t:''},
+      {t:'function hipotenusa(int a, int b) {',hl:[{w:'function',c:'kw'},{w:'int',c:'kw'}]},
+      {t:'    return _____(a) + quadrado(b);',blanks:[{a:'quadrado',h:'função auxiliar que eleva ao quadrado'}],hl:[{w:'return',c:'kw'},{w:'+',c:'op'}]},
+      {t:'}'},
+      {t:''},
+      {t:'print(hipotenusa(3, 4));',hl:[{w:'print',c:'fn'},{w:'3',c:'num'},{w:'4',c:'num'}]},
+    ],output:'25'},
+  ]},
+];
+
+const done={};
+const ans={};
+SECTIONS.forEach(s=>{done[s.id]=new Set();ans[s.id]={};});
+let activeSec='logica';
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function hlLine(text,highlights){
+  if(!highlights)return esc(text);
+  let out=esc(text);
+  highlights.forEach(({w,c})=>{
+    const ew=esc(w).replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    out=out.replace(new RegExp(ew,'g'),`<span class="${c}">${esc(w)}</span>`);
+  });
+  return out;
+}
+function sec(){return SECTIONS.find(s=>s.id===activeSec);}
+
+function renderSectionTabs(){
+  const el=document.getElementById('sec-tabs');
+  el.innerHTML='';
+  SECTIONS.forEach(s=>{
+    const b=document.createElement('button');
+    const isActive=s.id===activeSec;
+    const isDone=done[s.id].size===s.challenges.length;
+    b.className='sec-tab'+(isActive?' sec-active':'');
+    b.textContent=s.label+(isDone?' ✓':'');
+    if(isActive){b.style.background=s.dim;b.style.color=s.accent;b.style.borderColor=s.accent;}
+    b.onclick=()=>{activeSec=s.id;renderSectionTabs();renderTabs(0);renderC(0);updateScore();};
+    el.appendChild(b);
+  });
+  const s=sec();
+  document.getElementById('logo-text').textContent=s.label;
+  document.querySelector('.logo-dot').style.background=s.accent;
+  document.getElementById('pf').style.background=s.accent;
+}
+
+function renderTabs(activeId){
+  const s=sec();
+  const el=document.getElementById('tabs');
+  el.innerHTML='';
+  s.challenges.forEach((c,i)=>{
+    const b=document.createElement('button');
+    b.className='tab'+(i===activeId?' active':'')+(done[activeSec].has(i)?' done':'');
+    b.textContent=`#${i+1}`;
+    b.onclick=()=>renderC(i);
+    el.appendChild(b);
+  });
+}
+
+function renderC(id){
+  const s=sec();
+  const c=s.challenges[id];
+  renderTabs(id);
+  if(!ans[activeSec][id])ans[activeSec][id]={};
+  const area=document.getElementById('area');
+  area.innerHTML='';
+  const card=document.createElement('div');
+  card.className='card';
+  const diffCls=c.diff==='easy'?'p-easy':c.diff==='medium'?'p-med':'p-hard';
+  const diffLbl=c.diff==='easy'?'Fácil':c.diff==='medium'?'Médio':'Difícil';
+  card.innerHTML=`<div class="meta"><span class="pill ${diffCls}">${diffLbl}</span><span class="pill p-concept">${c.concept}</span></div><div class="challenge-title">${c.title}</div><div class="challenge-desc">${c.desc}</div>`;
+  const codeWrap=document.createElement('div');
+  codeWrap.className='code-wrap';
+  codeWrap.innerHTML=`<div class="code-header"><span class="dot d-r"></span><span class="dot d-y"></span><span class="dot d-g"></span><span class="code-lang">pseudocode</span></div>`;
+  const body=document.createElement('div');
+  body.className='code-body';
+  c.lines.forEach((line,li)=>{
+    const span=document.createElement('span');
+    span.className='ln';
+    const lineNum=`<span class="ln-num">${li+1}</span>`;
+    if(!line.blanks){
+      span.innerHTML=lineNum+hlLine(line.t,line.hl);
+    } else {
+      let html=hlLine(line.t,line.hl);
+      line.blanks.forEach((b,bi)=>{
+        const key=`${id}_${li}_${bi}`;
+        const val=ans[activeSec][id][key]||'';
+        const st=ans[activeSec][id][key+'_s']||'';
+        const w=Math.max(60,(b.a.length*10)+24);
+        html=html.replace('_____',`<span class="blank-w"><input class="blank ${st}" id="${key}" value="${val}" autocomplete="off" spellcheck="false" style="width:${w}px"><span class="hint-btn">?<span class="htip">${b.h}</span></span></span>`);
+      });
+      span.innerHTML=lineNum+html;
+    }
+    body.appendChild(span);
+  });
+  codeWrap.appendChild(body);
+  card.appendChild(codeWrap);
+  const outWrap=document.createElement('div');
+  outWrap.className='output-wrap'+(done[activeSec].has(id)?' show':'');
+  outWrap.innerHTML=`<div class="out-label">saída</div><div class="out-val">${c.output}</div>`;
+  card.appendChild(outWrap);
+  const actions=document.createElement('div');
+  actions.className='actions';
+  const bCheck=document.createElement('button');
+  bCheck.className='btn-primary';bCheck.textContent='Verificar';bCheck.onclick=()=>check(id);
+  const bReveal=document.createElement('button');
+  bReveal.className='btn-sec';bReveal.textContent='Revelar';bReveal.onclick=()=>reveal(id);
+  const fb=document.createElement('span');
+  fb.className='fb';fb.id='fb_'+id;
+  const bReset=document.createElement('button');
+  bReset.className='btn-reset';bReset.textContent='Resetar';bReset.onclick=()=>{ans[activeSec][id]={};renderC(id);};
+  actions.appendChild(bCheck);actions.appendChild(bReveal);actions.appendChild(fb);actions.appendChild(bReset);
+  card.appendChild(actions);
+  area.appendChild(card);
+}
+
+function getBlanks(id){
+  const c=sec().challenges[id];
+  const res=[];
+  c.lines.forEach((l,li)=>{
+    if(!l.blanks)return;
+    l.blanks.forEach((b,bi)=>res.push({key:`${id}_${li}_${bi}`,a:b.a,li,bi}));
+  });
+  return res;
+}
+
+function check(id){
+  const blanks=getBlanks(id);
+  let ok=true;
+  blanks.forEach(({key,a})=>{
+    const inp=document.getElementById(key);if(!inp)return;
+    const v=inp.value.trim();
+    ans[activeSec][id][key]=v;
+    if(v.toLowerCase()===a.toLowerCase()){
+      inp.className='blank ok';ans[activeSec][id][key+'_s']='ok';
+    } else {
+      inp.className='blank err';ans[activeSec][id][key+'_s']='err';ok=false;
+      setTimeout(()=>{inp.className='blank';ans[activeSec][id][key+'_s']='';},700);
+    }
+  });
+  const fb=document.getElementById('fb_'+id);
+  if(ok){
+    fb.textContent='✓ Correto!';fb.className='fb show fb-ok';
+    if(!done[activeSec].has(id)){done[activeSec].add(id);updateScore();}
+    document.querySelector('.output-wrap').classList.add('show');
+    renderTabs(id);renderSectionTabs();
+  } else {
+    fb.textContent='✗ Revise as lacunas.';fb.className='fb show fb-err';
+    setTimeout(()=>{fb.className='fb';},2000);
+  }
+}
+
+function reveal(id){
+  getBlanks(id).forEach(({key,a})=>{
+    const inp=document.getElementById(key);if(!inp)return;
+    inp.value=a;inp.className='blank ok';ans[activeSec][id][key]=a;ans[activeSec][id][key+'_s']='ok';
+  });
+  if(!done[activeSec].has(id)){done[activeSec].add(id);updateScore();}
+  document.querySelector('.output-wrap').classList.add('show');
+  renderTabs(id);renderSectionTabs();
+}
+
+function updateScore(){
+  const s=sec();
+  const n=done[activeSec].size;
+  const t=s.challenges.length;
+  document.getElementById('sc').textContent=`${n} / ${t}`;
+  document.getElementById('pf').style.width=`${(n/t)*100}%`;
+  if(n===t)document.getElementById('congrats').classList.add('show');
+  else document.getElementById('congrats').classList.remove('show');
+}
+
+renderSectionTabs();
+renderTabs(0);
+renderC(0);
+updateScore();
+</script>
