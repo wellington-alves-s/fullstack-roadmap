@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Como surgiu o mascote do Android</title>
+    <style>
+        /* 
+        :root {
+            --cor-primaria: #2da060;
+            --cor-secundaria: #218d52;
+            --cor-fundo: #1a5c37;
+            --cor-texto: #ffffff;
+            serve para definir variáveis de cor, que podem ser reutilizadas em todo o CSS. Isso facilita a manutenção e a consistência do design, pois você pode alterar a cor em um único lugar e ela será refletida em todos os elementos que usam essa variável.
+            --fonte-padrão: 'Arial, Helvetica, sans-serif';
+            --fonte-destaque: 'bebas-neue, sans-serif';
+            --fonte-android: 'idroid, sans-serif';
+            serve para definir variáveis de fonte, que podem ser reutilizadas em todo o CSS. Isso ajuda a manter a consistência tipográfica e facilita a alteração das fontes em todo o site, caso seja necessário.
+        }
+            header > h1 {
+                font-family: var(--fonte-android);
+                color: var(--cor-secundaria);
+            } Exemplo de como usar as variáveis de fonte e cor definidas no :root. O h1 dentro do header usará a fonte definida em --fonte-android e a cor definida em --cor-secundaria.
+            header > p {
+                font-family: var(--fonte-padrão);
+                color: var(--cor-texto);
+            } Exemplo de como usar as variáveis de fonte e cor para o parágrafo dentro do header. Ele usará a fonte definida em --fonte-padrão e a cor definida em --cor-texto.
+            * {
+                margin: 0px;
+                padding: 0px;
+            } Esse seletor universal (*) é usado para remover as margens e os preenchimentos padrão de todos os elementos, garantindo que o layout seja mais consistente em diferentes navegadores. No entanto, é importante usar esse tipo de reset com cuidado, pois pode afetar a formatação de elementos específicos que dependem dessas margens ou preenchimentos para sua aparência correta.
+         */
+
+        @font-face {
+            font-family: 'idroid';
+            src: url(font/idroid.otf) format(truetype);
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            background-color: #2da060;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(to bottom, #3CD781, #2b9e5f, #218d52, #064221);
+
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+            margin: 0px 0px 0px 0px;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        nav ul li a {
+            font-family: Arial, Helvetica, sans-serif;
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        h1 {
+            font-family: 'idroid', sans-serif;
+            color: #218d52;
+            font-size: 2em;
+        }
+
+        h2 {
+            font-family: 'idroid', sans-serif;
+            color: #218d52;
+            font-size: 1.5em;
+            background: linear-gradient(to right, #c6ffe9, #a2ffcc, #f7f7f7);
+
+        }
+
+        p {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1em;
+            line-height: 1.5;
+        }
+
+        #cabeçalho {
+            color: #fff;
+            font-size: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #subtitulo {
+            color: #e0e0e0;
+            font-size: 16px;
+        }
+
+        main {
+            background-color: white;
+            width: 85%;
+            max-width: 900px;
+            padding: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            box-sizing: border-box;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+
+        a {
+            color: #218d52;
+            text-decoration: none;
+        }
+
+        #iconeLink a::after {
+            content: "🔗";
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #064221;
+            color: #fff;
+        }
+
+        #imagemDroid {
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        #imagemIrina {
+            margin: -10px -10px 10px -10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        #imagemBugdroid2 {
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        #divVideo {
+            background-color: #1a5c37;
+            padding: 20px;
+            margin-left: -20px;
+            margin-right: -20px;
+            /* Ajusta a margem para que o vídeo ocupe toda a largura do container, o -20px anula o margin do container pai */
+        }
+
+        #divVideo iframe {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border: none;
+        }
+
+        #querAprenderMais {
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            display: block;
+            text-align: left;
+        }
+
+        div#caixaAprenderMais1 {
+            background-color: #218d52;
+            padding: 20px;
+            margin: 20px 0px 0px 0px;
+            border-radius: 10px 10px 10px 10px;
+        }
+
+        div#caixaAprenderMais2 {
+            background-color: #a7cfb9;
+            padding: 20px;
+            margin: -20px 0px 0px 0px;
+            border-radius: 0px 0px 10px 10px;
+        }
+
+        #divfinal {
+            border-radius: 0px 0px 10px 10px;
+        }
+
+        #colunasLista {
+            columns: 2;
+            /* duas colunas */
+            list-style: none;
+            padding: 0;
+        }
+
+        #colunasLista li::before {
+            content: "✔ ";
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1 id="cabeçalho">CURIOSIDADES DE TECNOLOGIA</h1>
+        <p id="subtitulo">Tudo aquilo que você sempre quis saber sobre o mundo Tech, em um único lugar</p>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Notícias</a></li>
+                <li><a href="#">Curiosidades</a></li>
+                <li><a href="#">Fale conosco</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article>
+            <h1>Historia do mascote android</h1>
+            <p>Provavelmente você sabe que o sistema operacional Android, mantido pelo Google é um dos mais utilizados
+                para dispositivos móveis em todo o mundo. Mas tavez você não saiba que o seu simpático mascote tem um
+                nome e uma história muito curiosa? Pois acompanhe esse artigo para aprender muita coisa sobre esse
+                robozinho.</p>
+            <h2>A primeira versão</h2>
+            <p id="iconeLink">A primeira tentativa de criar um mascote surgiu em 2007 e veio de um desenvolvedor chamado
+                <a href="">Dan Morrill</a>. Ele conta que abriu o <a href="">Inkscape</a> (software livre para
+                vetorização de imagens) e criou sua própria versão de robô. O objetivo era apenas personificar o sistema
+                apenas para a sua equipe, não existia nenhuma solicitação da empresa para a criação de um mascote.</p>
+            <picture id="imagemDroid">
+                <source media="(max-width: 750px)" srcset="img/dan-droids-pq.png" type="image/png" width="370">
+                <source media="(max-width: 1050px)" srcset="img/dan-droids.png" type="image/png" width="750">
+                <img src="img/dan-droids.png" alt="Imagem flexivel" width="750">
+            </picture>
+            <p>Essa primeira versão bizarra até foi batizada em homenagem ao seu criador: seriam os <a
+                    href="">Dandroids</a>.
+            </p>
+            <h2>Surge um novo mascote</h2>
+            <p id="iconeLink">A ideia de ter um mascote foi amadurecendo e a missão foi passada para uma profissional da
+                área. A ilustradora Russa <a href="">Irina Blok</a>, também funcionária do Google, ficou com a missão de
+                representar o pequeno robô de uma maneira mais agradável.</p>
+            <picture id="imagemIrina">
+                <source media="(max-width: 750px)" srcset="img/irina-blok-pq.jpg" type="image/jpeg" width="370">
+                <source media="(max-width: 1080px)" srcset="img/irina-blok.jpg" type="image/jpeg" width="680"
+                    height="300">
+                <img src="img/irina-blok.jpg" alt="Imagem flexivel" width="680">
+            </picture>
+            <p id="iconeLink">A ideia principal da Irina era representar tudo graficamente com poucos traços e de forma
+                mais chapada. O desenho também deveria gerar identificação rápida com quem o olha. Surgiu então o <a
+                    href="">Bugdroid</a>, o novo mascote do Android.</p>
+            <picture id="imagemBugdroid2">
+                <source media="(max-width: 750px)" srcset="img/bugdroid.png" type="image/png" width="370">
+                <source media="(max-width: 1050px)" srcset="img/bugdroid.png" type="image/png" width="600" height="300">
+                <img src="img/bugdroid.png" alt="Imagem flexivel" width="600">
+            </picture>
+            <p>A principal inspiração para os traços do novo Bugdroid veio daqueles bonequinhos que ilustram portas de
+                banheiro para indicar o gênero de cada porta. Conta a lenda que a artista estava criando em sua mesa no
+                escritório do Google e olhou para o lado dos banheiros e a identificação foi imediata: simples, limpo,
+                objetivo.</p>
+
+            <div id="divVideo">
+                <iframe id="video" src="https://www.youtube.com/embed/l2UDgpLz20M?si=NrADTEFsHzoueHd6"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <aside>
+                <div id="caixaAprenderMais1">
+                    <h1 id="querAprenderMais">Quer aprender mais?</h1>
+                </div>
+                <div id="caixaAprenderMais2">
+                    <p>Outro assunto curioso em relação ao Android é que cada versão sempre foi nomeada em homenagem a
+                        um doce, em ordem alfabética a partir da versão 1.5 até a 9.0.</p>
+                    <ul id="colunasLista">
+                        <li>1.5 - Cupcake</li>
+                        <li>1.6 - Donut</li>
+                        <li>2.0 - Eclair</li>
+                        <li>2.1 - Froyo</li>
+                        <li>2.2 - Gingerbread</li>
+                        <li>2.3 - Honeycomb</li>
+                        <li>3.0 - Ice Cream Sandwich</li>
+                        <li>4.0 - Jelly Bean</li>
+                        <li>4.1 - KitKat</li>
+                        <li>5.0 - Lollipop</li>
+                        <li>6.0 - Marshmallow</li>
+                        <li>7.0 - Nougat</li>
+                        <li>8.0 - Oreo</li>
+                        <li>9.0 - Pie</li>
+                    </ul>
+                    <p>Infelizmente, o <strong>Android Q</strong> não existiu, pois o Google resolveu pôr fim a essa divertida prática e
+                        começou a usar numerações, o que deu origem ao Android 10.</p>
+                    <p id="iconeLink">Acesse aqui o site <a href="https://www.android.com/history/"
+                            target="_blank">Android History</a> para conhecer a sequência das versões "adocicadas" e o
+                        que cada uma trouxe para o sistema Android.</p>
+                    <div id="divfinal">
+            </aside>
+            </div>
+            <p>Então é isso! Espero que você tenha gostado do nosso artigo com essa curiosidade sobre o sistema <a
+                    href="">Android</a> e seu simpático mascote.</p>
+            </div>
+        </article>
+        <!-- A estrutura basica semantica de um documento HTML é: body, header (nav, ul), main, article (div, h1, h1, p, a, picture, img, video, aside), footer -->
+    </main>
+    <footer>
+        <p>Copyright © 2026 Curiosidades de Tecnologia. Todos os direitos reservados.</p>
+    </footer>
+</body>
+
+</html>
