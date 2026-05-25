@@ -1,4 +1,9 @@
-
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Desafios de Programação</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -52,7 +57,7 @@ html,body{background:#0e1117;min-height:100vh}
 .hint-btn{display:inline-block;margin-left:5px;font-size:11px;color:var(--text3);cursor:pointer;user-select:none;transition:color .15s;border:1px solid var(--border);border-radius:4px;padding:1px 5px;background:var(--bg3)}
 .hint-btn:hover{color:var(--text1)}
 .htip{display:none;position:absolute;left:0;bottom:calc(100% + 6px);background:#2d1f4a;color:#c4b5fd;font-family:'Space Grotesk',sans-serif;font-size:11px;padding:5px 10px;border-radius:7px;white-space:nowrap;z-index:10;pointer-events:none;border:1px solid #4c3789}
-.blank-w:hover .htip{display:block}
+.htip{display:none!important}
 .output-wrap{margin-top:.75rem;background:#0a0d14;border-radius:8px;padding:.75rem 1rem;font-family:'JetBrains Mono',monospace;font-size:12.5px;display:none;border:1px solid var(--border)}
 .output-wrap.show{display:block}
 .out-label{font-size:10px;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
@@ -72,8 +77,39 @@ html,body{background:#0e1117;min-height:100vh}
 .congrats{display:none;text-align:center;padding:1.5rem;background:var(--green-dim);border-radius:12px;border:1px solid #1a6b45;color:var(--green);font-size:14px;font-weight:600;margin-top:.5rem}
 .congrats.show{display:block}
 .kw{color:#c084fc}.str{color:#86efac}.num{color:#fbbf24}.cmt{color:#3a4d6a}.op{color:#67e8f9}.fn{color:#60a5fa}.sym{color:#e2e8f0}
+.sec-tabs{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none}
+.sec-tabs::-webkit-scrollbar{display:none}
+.tabs{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.code-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#2a3348 transparent}
+.code-scroll::-webkit-scrollbar{height:4px}
+.code-scroll::-webkit-scrollbar-track{background:transparent}
+.code-scroll::-webkit-scrollbar-thumb{background:#2a3348;border-radius:4px}
+.hint-box{display:none;margin:.625rem 0 0;background:#2d1f4a;color:#c4b5fd;font-family:'Space Grotesk',sans-serif;font-size:12.5px;padding:8px 14px;border-radius:8px;border:1px solid #4c3789;line-height:1.55}
+@media(max-width:640px){
+  .dk{padding:.875rem .75rem 2rem;border-radius:0}
+  html,body{background:#0e1117}
+  .card{padding:.875rem .875rem}
+  .challenge-title{font-size:14px}
+  .challenge-desc{font-size:12px;margin-bottom:.75rem}
+  .code-body{font-size:12px;line-height:1.85;padding:.625rem .75rem}
+  .blank{font-size:16px;height:30px;min-width:56px}
+  .htip{white-space:normal;max-width:200px}
+  .hint-btn{padding:2px 7px;font-size:12px}
+  .btn-primary,.btn-sec,.btn-reset{font-size:12px;padding:9px 14px;min-height:42px}
+  .topbar{gap:6px;margin-bottom:.75rem}
+  .score{font-size:11px}
+  .logo-text{font-size:10px;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .sec-tab{font-size:12px;padding:8px 14px;min-height:40px}
+  .tab{font-size:13px;padding:9px 14px;min-height:40px}
+  .pill{font-size:9px}
+  .actions{gap:6px;margin-top:.875rem}
+  .fb{font-size:12px}
+  .ln-num{width:16px;margin-right:8px;font-size:10px}
+}
 </style>
-
+</head>
+<body>
 <div class="dk" id="app">
   <h2 style="position:absolute;width:1px;height:1px;overflow:hidden">Exercícios de programação</h2>
   <div class="topbar">
@@ -654,14 +690,20 @@ function renderC(id){
         const val=ans[activeSec][id][key]||'';
         const st=ans[activeSec][id][key+'_s']||'';
         const w=Math.max(60,(b.a.length*10)+24);
-        html=html.replace('_____',`<span class="blank-w"><input class="blank ${st}" id="${key}" value="${val}" autocomplete="off" spellcheck="false" style="width:${w}px"><span class="hint-btn">?<span class="htip">${b.h}</span></span></span>`);
+        html=html.replace('_____',`<span class="blank-w"><input class="blank ${st}" id="${key}" value="${val}" autocomplete="off" spellcheck="false" style="width:${w}px"><span class="hint-btn" onclick="toggleHint(this)">?<span class="htip">${b.h}</span></span></span>`);
       });
       span.innerHTML=lineNum+html;
     }
     body.appendChild(span);
   });
-  codeWrap.appendChild(body);
+  const scrollWrap=document.createElement('div');
+  scrollWrap.className='code-scroll';
+  scrollWrap.appendChild(body);
+  codeWrap.appendChild(scrollWrap);
   card.appendChild(codeWrap);
+  const hintBox=document.createElement('div');
+  hintBox.className='hint-box';hintBox.id='hint-display';
+  card.appendChild(hintBox);
   const outWrap=document.createElement('div');
   outWrap.className='output-wrap'+(done[activeSec].has(id)?' show':'');
   outWrap.innerHTML=`<div class="out-label">saída</div><div class="out-val">${c.output}</div>`;
@@ -737,8 +779,23 @@ function updateScore(){
   else document.getElementById('congrats').classList.remove('show');
 }
 
+function toggleHint(btn){
+  var hint=btn.querySelector('.htip').textContent;
+  var box=document.getElementById('hint-display');
+  if(!box)return;
+  if(box._activeBtn===btn&&box.style.display==='block'){
+    box.style.display='none';box._activeBtn=null;
+  } else {
+    box.textContent=hint;
+    box.style.display='block';
+    box._activeBtn=btn;
+  }
+}
+
 renderSectionTabs();
 renderTabs(0);
 renderC(0);
 updateScore();
 </script>
+</body>
+</html>
