@@ -22,7 +22,7 @@ Este repositório contém minha jornada completa para me tornar um **Desenvolved
 
 Cada fase contém:
 - `resumo.md`: anotações e aprendizados
-- `recursos.md`: links úteis, artigos, cursos
+- `recursos.md`: links úteis, artigos, cur
 - `projetos/`: projetos práticos desenvolvidos
 
 ## 🚀 Como usar
