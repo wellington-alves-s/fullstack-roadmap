@@ -30,7 +30,7 @@ Cada fase contém:
 1. Estude os conteúdos de cada fase na ordem sugerida
 2. Registre seu progresso nos arquivos markdown
 3. Construa os projetos dentro de cada diretório
-4. Use Git e GitHub para versionar e acompanhar a evoluçã
+4. Use Git e GitHub para versionar e acompanhar a evolução
 
 ---
 
