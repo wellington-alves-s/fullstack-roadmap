@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alinhamento vertical</title>
+    <style>
+        #container {
+            background-image: url(img/target001.png);
+            background-size: 100% 100%;
+            position: relative;/* Permite posicionar o elemento em relação ao seu elemento pai */
+            height: 94vh;/* 94% da altura da tela viewport */
+            padding: 10px;
+            background-color: purple;
+        }
+
+        #conteudo {
+            background-image: url(img/target001.png);
+            background-size: 100% 100%;
+            position: absolute;/* Permite posicionar o elemento em relação ao seu elemento pai */
+            width: 450px;
+            height: 200px;
+            background-color: yellow;
+            left: 50%; /* Posiciona o elemento no centro horizontal da tela */
+            top: 50%;/* Posiciona o elemento no centro vertical da tela */
+            transform: translate(-50%, -50%); /* Centraliza o elemento horizontal e verticalmente, - movimenta para a esquerda e para cima e + movimenta para a direita e para baixo */
+            
+        }
+    </style>
+</head>
+<body>
+    <section id="container">
+        <article id="conteudo">
+
+        </article>
+    </section>
+</body>
+</html>
