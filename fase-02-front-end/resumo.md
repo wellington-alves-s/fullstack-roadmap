@@ -16,4 +16,4 @@ Resumo do que foi estudado na pasta html-css
   - Domínio da estrutura HTML e cascata de CSS
   - Uso de seletores, box model e posicionamento
   - Adaptação do design para diferentes tamanhos de tela
-  - Organização do projeto em pastas e arquivos claros
+  - Organização do projeto em pastas e arquivos claro
