@@ -28,7 +28,7 @@ header {
 
 header > h1 {
     font-family: var(--fonte2);
-    font-size: 8vh;
+    font-size: 8vw;
     padding-top: 50px;
     /* text-transform: uppercase; (transforma todas as letras em maiúsculas) */ 
     font-variant: small-caps; /* transforma todas as letras em maiúsculas, mas a primeira letra de cada palavra fica maior que as demais */
@@ -54,7 +54,7 @@ section {
     line-height: 2em;
     padding-left: 10%;
     font-family: var(--fonte3);
-    font-size: 3.5vh;
+    font-size: 3.5vw; /* 3.5vw = 3.5% da largura da tela */
 }
 
 section > p {
