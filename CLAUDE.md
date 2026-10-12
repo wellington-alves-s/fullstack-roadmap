@@ -20,7 +20,7 @@ Each phase (`fase-XX-*/`) follows this convention:
 
 - `resumo.md` — study notes and key learnings
 - `recursos.md` — useful links and references
-- `projetos/` — practical project
+- `projetos/` — practical projects
 
 HTML/CSS exercises are organized under `fase-02-front-end/html-css/Modulo N/exercicioNNN/`, each containing an `index.html` plus any supporting assets (fonts, images).
 
