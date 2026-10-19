@@ -1,85 +1,101 @@
 @charset "UTF-8";
 
-@import url('https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&family=Sriracha&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&family=Sriracha&display=swap");
 
 :root {
-    --fonte1: Verdana, Geneva, Tahoma, sans-serif;
-    --fonte2: 'Passion One', cursive;
-    --fonte3: 'Sriracha', cursive;
+	--fonte1: Verdana, Geneva, Tahoma, sans-serif;
+	--fonte2: "Passion One", cursive;
+	--fonte3: "Sriracha", cursive;
 }
 
 * {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
-html, body {
-    min-height: 100vh;
-    background-color: darkgrey;
-    font-family: var(--fonte1);
+html,
+body {
+	min-height: 100vh;
+	background-color: darkgrey;
+	font-family: var(--fonte1);
 }
 
 header {
-    background-color: black;
-    color: white;
-    text-align: center;
-    padding: 20px;
+	background-color: black;
+	color: white;
+	text-align: center;
+	padding: 20px;
 }
 
 header > h1 {
-    font-family: var(--fonte2);
-    font-size: 8vw;
-    padding-top: 50px;
-    /* text-transform: uppercase; (transforma todas as letras em maiúsculas) */ 
-    font-variant: small-caps; /* transforma todas as letras em maiúsculas, mas a primeira letra de cada palavra fica maior que as demais */
+	font-family: var(--fonte2);
+	font-size: 8vw;
+	padding-top: 50px;
+	/* text-transform: uppercase; (transforma todas as letras em maiúsculas) */
+	font-variant: small-caps; /* transforma todas as letras em maiúsculas, mas a primeira letra de cada palavra fica maior que as demais */
 }
 
 header > p {
-    padding-bottom: 50px;
+	padding-bottom: 50px;
 }
 
 a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
+	color: white;
+	text-decoration: none;
+	font-weight: bold;
 }
 
 a:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 section {
-    padding-top: 10%;
-    padding-bottom: 10vh;
-    line-height: 2em;
-    padding-left: 10%;
-    font-family: var(--fonte3);
-    font-size: 3.5vw; /* 3.5vw = 3.5% da largura da tela */
+	padding-top: 10%;
+	padding-bottom: 10vh;
+	line-height: 2em;
+	padding-left: 10%;
+	font-family: var(--fonte3);
+	font-size: 3.5vw; /* 3.5vw = 3.5% da largura da tela */
 }
 
 section > p {
-    padding-bottom: 2em;
+	padding-bottom: 2em;
 }
 
 section.normal {
-    background-color: white;
-    color: black;
+	background-color: white;
+	color: black;
 }
 
 section.imagem {
-    background-color: rgb(85, 85, 85);
-    color: rgb(255, 255, 255);
+	background-color: rgb(85, 85, 85);
+	color: rgb(255, 255, 255);
+	box-shadow: inset 6px 6px 13px 0px rgba(0, 0, 0, 0.514);
+    background-attachment: fixed;
 }
 
 section.imagem > p {
-    display: inline-block;
-    padding: 15px;
-    background-color: rgb(66, 66, 66);
+	display: inline-block;
+	padding: 15px;
+	background-color: rgba(66, 66, 66, 0.288);
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+section#imag01 {
+	background-image: url("img/background001.jpg");
+	background-size: cover;
+	background-position: right center;
+}
+
+section#imag02 {
+	background-image: url("img/background002.jpg");
+	background-size: cover;
+	background-position: right center;
 }
 
 footer {
-    background-color: black;
-    color: white;
-    text-align: center;
-    padding: 10px;
+	background-color: black;
+	color: white;
+	text-align: center;
+	padding: 10px;
 }
